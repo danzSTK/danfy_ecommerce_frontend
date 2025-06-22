@@ -34,3 +34,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## RNF (Regras nao funcionais)
+[ ] IMAGENS DE CATEGORIA VAI ACEITAR SOMENTE 1:1 PARA EVITAR IMAGENS DISTROCIDAS E LAYOUT QUEBRADOS AS ESCALAS VAO DE 400:400 À 800:800PX  QUALIDADE
+[ ] IMAGENS DE PRODUTOS 'ESSE É O PRINCIPAL' DEVE ACEITAR SOMENTE 3:4(IDEAL) 4:5(ACEITÁVEL) 2:3 (POUCA QUALIDADE, PORÉM PODEMOS CORRIGIR)
