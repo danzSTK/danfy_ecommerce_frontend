@@ -23,7 +23,7 @@ export const CardProducts = ({
   return (
     <Link href={router} className="group">
       <CardBase
-        className="grid grid-cols-[1fr_auto] gap-2 items-start"
+        className=" md:grid md:grid-cols-[1fr_auto] gap-2 items-start"
         imageUrl={imageUrl}
         alt={alt}
         aspectRadio="aspect-[3/4]"
