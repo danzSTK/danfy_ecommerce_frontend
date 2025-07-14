@@ -10,7 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { LayoutDashboard } from "lucide-react";
-import { navigationMenuItems } from "@/app/page";
+import { navigationMenuItems } from "@/app/(base)/page";
 
 //TODO: Corrigir e achar outra forma de compartilhar esse elemento sem fazer o ternario por tipo, facilitando o uso e sua construção mais semantica \ fazer uma forma de centralizar os caminhos e rotas para nao mudar devido ao layout, lembrando que no mobile as rotas estao hight code / magic string
 export function Sidebar(/* { children }: { children: React.ReactNode } */) {
@@ -49,6 +49,7 @@ export function Sidebar(/* { children }: { children: React.ReactNode } */) {
       >
         <header className="flex items-center justify-between p-4 ">
           <h2 className="uppercase font-bold font-mono ">Danfy Shopfy</h2>
+
           <button onClick={closeSidebar}>
             <X className="w-5 h-5" />
           </button>
@@ -134,6 +135,8 @@ export function Sidebar(/* { children }: { children: React.ReactNode } */) {
             </section>
           </main>
         )}
+
+        {type === "fixed" && <h2>Só sei que nada sei</h2>}
       </aside>
     </div>
   );

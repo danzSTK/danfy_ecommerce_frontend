@@ -1,13 +1,14 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 
-type SidebarType = "cart" | "favorites" | "menu" | "profile" | null;
+type SidebarType = "cart" | "favorites" | "menu" | "profile" | "fixed" | null;
 
 type SidebarContextType = {
   type: SidebarType;
   open: boolean;
   openSidebar: (type: SidebarType) => void;
   closeSidebar: () => void;
+  setTypeValue: (type: SidebarType) => void;
 };
 
 const SidebarContext = React.createContext<SidebarContextType>({
@@ -15,6 +16,7 @@ const SidebarContext = React.createContext<SidebarContextType>({
   open: false,
   openSidebar: () => {},
   closeSidebar: () => {},
+  setTypeValue: () => {},
 });
 
 export const SidebarProvider = ({
@@ -32,6 +34,10 @@ export const SidebarProvider = ({
     document.body.style.overflow = "hidden";
   };
 
+  const setTypeValue = (type: SidebarType) => {
+    setType(type);
+  };
+
   const closeSidebar = () => {
     setType(null);
     setOpen(false);
@@ -47,7 +53,9 @@ export const SidebarProvider = ({
   }, []);
 
   return (
-    <SidebarContext.Provider value={{ type, open, openSidebar, closeSidebar }}>
+    <SidebarContext.Provider
+      value={{ type, open, openSidebar, closeSidebar, setTypeValue }}
+    >
       {children}
     </SidebarContext.Provider>
   );
