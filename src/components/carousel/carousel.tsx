@@ -1,3 +1,5 @@
+"use client";
+
 import Autoplay from "embla-carousel-autoplay";
 // import * as images from "../../../public/images";
 
@@ -10,11 +12,13 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { ReactNode, useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type CarouselWrapperProps = {
   sliders: ReactNode[];
   className?: string;
   autoplay?: boolean;
+  teste?: boolean;
   variant?: "default" | "card";
 };
 
@@ -23,10 +27,12 @@ export default function CarouselWrapper({
   className,
   autoplay = true,
   variant = "default",
+  teste = false,
 }: CarouselWrapperProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (!api) return;
@@ -48,7 +54,10 @@ export default function CarouselWrapper({
             setApi={setApi}
             plugins={autoplay ? [Autoplay({ delay: 4000 })] : []}
           >
-            <CarouselContent className="containerCarousel">
+            <CarouselContent
+              className="containerCarousel"
+              style={teste ? { height: "auto" } : undefined}
+            >
               {sliders.map((slider, index) => (
                 <CarouselItem className="" style={{ padding: 0 }} key={index}>
                   {slider}
@@ -73,7 +82,9 @@ export default function CarouselWrapper({
                 key={index}
                 onClick={() => api?.scrollTo(index)}
                 className={` cursor-pointer h-2 w-2 rounded-full transition-all ${
-                  current - 1 === index ? "bg-white scale-110" : "bg-white/40"
+                  current - 1 === index
+                    ? "bg-foreground scale-110"
+                    : "bg-muted-foreground/40"
                 }`}
               />
             ))}
@@ -82,10 +93,20 @@ export default function CarouselWrapper({
       )}
 
       {variant === "card" && (
-        <Carousel className="">
-          <CarouselContent>
+        <Carousel
+          className=""
+          opts={{
+            slidesToScroll: 1,
+            /*  loop: true, */
+            align: isMobile ? "center" : "start",
+          }}
+        >
+          <CarouselContent className="">
             {sliders.map((slide, index) => (
-              <CarouselItem key={index} className="basis-1/ ">
+              <CarouselItem
+                key={index}
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-1 md:pl-4"
+              >
                 <div className="p-1">{slide}</div>
               </CarouselItem>
             ))}

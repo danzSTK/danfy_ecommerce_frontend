@@ -4,8 +4,8 @@ import { NavContentType, NavMenu } from "../nav-menu/navMenu";
 import ToggleThemeButton from "../toggle-theme-button/toggleThemeButton";
 import { CardTitle } from "../ui/card";
 import { useSidebarContext } from "@/hooks/useSidebarContext";
-import { navigationMenuItems } from "@/app/page";
 import { Button } from "../ui/button";
+import { navigationMenuItems } from "@/app/(base)/page";
 
 export default function Header() {
   const { openSidebar } = useSidebarContext();
@@ -13,6 +13,8 @@ export default function Header() {
   // TODO: Corrigir e concentrar em local para armazenar sobre informações de caminhos relativos
 
   // TODO: Corrigir menu hamburger, adicionar card do carrinho e melhorar sidebar menu do mobile
+
+  //TODO: Achar uma forma de fazer um select ou saber qual aba/guia o usuaário está para controlar o acesso de forma mais precisa  e saber onde realmente encontramos taís dados para visual ou para controle do mesmo
   const navigationUserItemMobile: NavContentType[] = [
     /* { label: "search for product", icon: <Search />, href: "/search" }, */
     { label: "your cart", icon: <ShoppingCart />, href: "/cart" },
