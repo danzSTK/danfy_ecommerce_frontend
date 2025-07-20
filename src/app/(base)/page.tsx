@@ -1,3 +1,5 @@
+"use client";
+
 import { NavContentType } from "@/components/nav-menu/navMenu";
 import CarouselDestaque from "@/components/sections/CarouselDestaque";
 import { Sidebar } from "@/components/sidebar/siderbar";
@@ -28,6 +30,11 @@ import SectionFeedback, { Feedback } from "@/view/home/sectionFeedback";
 //TODO: achar outra forma de compartilhar esse component de carouselInfinito
 //TODO: achar outra forma de compartilhar essas imagens em destaque se nao ela vai ficar hight codado entao
 import userPhotoTeste from "../../../public/images/Rectangle 25.png";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/redux/store";
+import { increment } from "@/lib/redux/slices/exampleSlice";
+import { useGetProductsQuery } from "@/services/routes/products";
+import { useGetAllCategoriesQuery } from "@/services/routes/categories";
 
 export default function Home() {
   const logoMarcas = [
@@ -78,6 +85,10 @@ export default function Home() {
       name: "Danielzin Lorem 6",
     },
   ];
+
+  const count = useSelector((state: RootState) => state.example.count);
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, isLoading } = useGetAllCategoriesQuery();
 
   return (
     <>

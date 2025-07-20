@@ -7,7 +7,7 @@ const CardTitle = ({
 }) => {
   return (
     <h4
-      className={`text-base text-foreground font-bold truncate ${className}`}
+      className={`text-base capitalize text-foreground font-bold truncate ${className}`}
     >
       {children}
     </h4>
