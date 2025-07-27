@@ -1,20 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { NavContentType } from "@/components/nav-menu/navMenu";
 import CarouselDestaque from "@/components/sections/CarouselDestaque";
 import { Sidebar } from "@/components/sidebar/siderbar";
-import { House, Mars, Package, Venus } from "lucide-react";
 
 import SectionCategoryMen from "@/view/home/sectionCategoryForMen";
 import SectionCategoryWomen from "@/view/home/sectionCategoryForWomen";
 import { CarouselInfinity } from "@/components/carousel/CarouselInfint";
-
-export const navigationMenuItems: NavContentType[] = [
-  { label: "Home", href: "/", icon: <House /> },
-  { label: "All Product", href: "/products", icon: <Package /> },
-  { label: "Women", href: "/services/categories/women", icon: <Venus /> },
-  { label: "Men", href: "/categories/men", icon: <Mars /> },
-];
 
 import nikeLogo from "../../../public/images/logos-parceiras/Logo_NIKE.svg";
 import umbroLogo from "../../../public/images/logos-parceiras/Umbro_logo.svg";
@@ -32,11 +24,45 @@ import SectionFeedback, { Feedback } from "@/view/home/sectionFeedback";
 import userPhotoTeste from "../../../public/images/Rectangle 25.png";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
-import { increment } from "@/lib/redux/slices/exampleSlice";
-import { useGetProductsQuery } from "@/services/routes/products";
 import { useGetAllCategoriesQuery } from "@/services/routes/categories";
+import Header from "@/components/header/header";
+import { NavContentType } from "@/components/nav-menu/navMenu";
+import { House, Package, Venus, Mars } from "lucide-react";
 
 export default function Home() {
+  //TODO: preciso achar uma forma de extrair esses dados e compartilhar na minha aplicaçao em uma forma que nao precise fazer requisiçoes em todos os templates que utilizar header ou sidebar com
+  const {
+    data: dataCategoryMens,
+    error: errorCategoryMens,
+    isLoading: IsLoadingCategoryMens,
+  } = useGetAllCategoriesQuery({
+    name: "masculino",
+  });
+  const {
+    data: dataCategoryWomens,
+    error: errorCategoryWomens,
+    isLoading: isLoadingCategoryWomens,
+  } = useGetAllCategoriesQuery({
+    name: "feminino",
+  });
+  const navigationMenuItems: NavContentType[] = [
+    { label: "Home", href: "/", icon: <House /> },
+    { label: "Destaques", href: "/products", icon: <Package /> },
+    {
+      label: "Femininos",
+      href: `/products/category/${
+        dataCategoryMens ? dataCategoryMens[0].id : ""
+      }`,
+      icon: <Venus />,
+    },
+    {
+      label: "Masculinos",
+      href: `/products/category/${
+        dataCategoryWomens ? dataCategoryWomens[0].id : ""
+      }`,
+      icon: <Mars />,
+    },
+  ];
   const logoMarcas = [
     nikeLogo,
     umbroLogo,
@@ -47,7 +73,8 @@ export default function Home() {
     pulmaLogo.src,
   ];
 
-  const feedbacks: Feedback[] = [
+  //TODO: decidir se vai ou nao utilizar feedbacks para retirar esses dados mocados
+  /*   const feedbacks: Feedback[] = [
     {
       comment:
         "Testando o comentario via props e logo após eu sei lá meu irmao",
@@ -85,15 +112,16 @@ export default function Home() {
       name: "Danielzin Lorem 6",
     },
   ];
-
+ */
   const count = useSelector((state: RootState) => state.example.count);
   const dispatch = useDispatch<AppDispatch>();
-  const { data, isLoading } = useGetAllCategoriesQuery();
+  const { data, isLoading } = useGetAllCategoriesQuery({});
 
   return (
     <>
+      <Header navigationMenuItems={navigationMenuItems} />
       <CarouselDestaque />
-      <Sidebar />
+      <Sidebar navigationMenuItems={navigationMenuItems} />
       <SectionCategoryMen />
       <SectionCategoryWomen />
       <section>
@@ -108,7 +136,6 @@ export default function Home() {
         </ul>
       </section>
       <SectionDestaques />
-      <SectionFeedback feedbacks={feedbacks} />
     </>
   );
 }
