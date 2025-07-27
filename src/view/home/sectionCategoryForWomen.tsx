@@ -1,68 +1,67 @@
 import CardCategory from "@/components/cards/cardForCategory";
 import CarouselWrapper from "@/components/carousel/carousel";
 
-import imagemCardCategoryFeminina from "../../../public/images/categoria-feminina.png";
 import SectionTitle from "@/components/titles/SectionTitle";
+import { useGetAllCategoriesQuery } from "@/services/routes/categories";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "../products/CategoryList";
+
+const getCategoryImage = (categoryName: string) => {
+  //public\images\categorias\womens\capa-category-body-feminino.png
+  const map: Record<string, string> = {
+    jeans: "/images/categorias/womens/capa-category-jeans-feminino.png",
+    vestidos: "/images/categorias/womens/capa-category-vestido-feminino.png",
+    moletom: "/images/categorias/womens/capa-category-moletom-feminino.png",
+    body: "/images/categorias/womens/capa-category-body-feminino.png",
+  };
+
+  return map[categoryName.toLowerCase()] || "/images/categoria-feminina.png";
+};
 
 const SectionCategoryWomen = () => {
-  const sliders = [
-    <CardCategory
-      key={1}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-    <CardCategory
-      key={2}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-    <CardCategory
-      key={3}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-    <CardCategory
-      key={4}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-    <CardCategory
-      key={5}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-    <CardCategory
-      key={6}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-    <CardCategory
-      key={7}
-      router=""
-      imageUrl={imagemCardCategoryFeminina.src}
-      alt="Imagem masculina de apresetação para o card de categoria"
-      title="Hoodies & Sweetshirt"
-    />,
-  ];
+  const { data, isLoading, error } = useGetAllCategoriesQuery({
+    name: "feminino",
+  });
 
   return (
     <section className="my-20 container">
       <SectionTitle className="mb-8">Cateorias para Mulheres</SectionTitle>
-      <article>
-        <CarouselWrapper variant="card" sliders={sliders} />
-      </article>
+
+      {isLoading && (
+        <CarouselWrapper
+          variant="card"
+          sliders={Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-4">
+              <Skeleton className="w-full h-[280px]" />
+              <Skeleton className="w-3/4 h-5" />
+              <Skeleton className="w-1/2 h-5" />
+            </div>
+          ))}
+        />
+      )}
+
+      {data && data.length > 0 && !error && (
+        <article>
+          <CarouselWrapper
+            variant="card"
+            sliders={data[0].children.map((children) => {
+              const CATEGORYPATH = `products/category/${children.id}`;
+              const IMAGE_CATEGORY_PATH = getCategoryImage(children.name);
+              return (
+                <CardCategory
+                  key={children.id}
+                  router={CATEGORYPATH}
+                  imageUrl={IMAGE_CATEGORY_PATH}
+                  alt="Imagem masculina de apresetação para o card de categoria"
+                  title={children.name}
+                />
+              );
+            })}
+          />
+        </article>
+      )}
+
+      {!data && error && <ErrorState />}
     </section>
   );
 };

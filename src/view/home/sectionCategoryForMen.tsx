@@ -1,53 +1,65 @@
 import CardCategory from "@/components/cards/cardForCategory";
 import CarouselWrapper from "@/components/carousel/carousel";
-
-import imageCardCategoryTeste from "../../../public/images/Rectangle 20.png";
 import SectionTitle from "@/components/titles/SectionTitle";
 import { useGetAllCategoriesQuery } from "@/services/routes/categories";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "../products/CategoryList";
+
+const getCategoryImage = (categoryName: string) => {
+  const map: Record<string, string> = {
+    regatas: "/images/categorias/mens/capa-category-regata-masculina.webp",
+    blusas: "/images/categorias/mens/capa-category-camisa-masculina.webp",
+    bermudas: "/images/categorias/mens/capa-category-bermuda-masculina.webp",
+    calças: "/images/categorias/mens/capa-category-calca-masculina.webp",
+  };
+
+  return map[categoryName.toLowerCase()] || "/images/rectangle 20.png";
+};
 
 const SectionCategoryMen = () => {
-  const { data, isLoading } = useGetAllCategoriesQuery();
+  const { data, isLoading, error } = useGetAllCategoriesQuery({
+    name: "masculino",
+  });
+
 
   return (
     <section className="my-20 container">
       <SectionTitle className="mb-8">Categorias para Homens</SectionTitle>
-      {isLoading ? (
+      {isLoading && (
         <CarouselWrapper
           variant="card"
-          sliders={Array.from({ length: 4 }).map((_, index) => (
-            <div
-              key={index}
-              className="w-full h-40 bg-muted-foreground animate-pulse rounded-lg"
-            />
+          sliders={Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-4">
+              <Skeleton className="w-full h-[280px]" />
+              <Skeleton className="w-3/4 h-5" />
+              <Skeleton className="w-1/2 h-5" />
+            </div>
           ))}
         />
-      ) : (
-        <>
-          <article>
-            <CarouselWrapper
-              variant="card"
-              sliders={
-                data
-                  ?.filter((category) => category.name === "masculino")
-                  .flatMap((category) =>
-                    category.children.map((children) => {
-                      const CATEGORYPATH = `products/category/${children.id}`;
-                      return (
-                        <CardCategory
-                          key={children.id}
-                          router={CATEGORYPATH}
-                          imageUrl={imageCardCategoryTeste.src}
-                          alt="Imagem masculina de apresetação para o card de categoria"
-                          title={children.name}
-                        />
-                      );
-                    })
-                  ) || []
-              }
-            />
-          </article>
-        </>
       )}
+      {data && data.length > 0 && !error && (
+        <article>
+          <CarouselWrapper
+            variant="card"
+            sliders={data[0].children.map((categoryChildren) => {
+              const CATEGORYPATH = `products/category/${categoryChildren.id}`;
+              const IMAGE_CATEGORY_PATH = getCategoryImage(
+                categoryChildren.name
+              );
+              return (
+                <CardCategory
+                  key={categoryChildren.id}
+                  router={CATEGORYPATH}
+                  imageUrl={IMAGE_CATEGORY_PATH}
+                  alt="Imagem masculina de apresetação para o card de categoria"
+                  title={categoryChildren.name}
+                />
+              );
+            })}
+          />
+        </article>
+      )}
+      {!data && error && <ErrorState />}
     </section>
   );
 };
