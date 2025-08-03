@@ -49,14 +49,14 @@ export default function Home() {
     { label: "Home", href: "/", icon: <House /> },
     { label: "Destaques", href: "/products", icon: <Package /> },
     {
-      label: "Femininos",
+      label: "Masculinos",
       href: `/products/category/${
         dataCategoryMens ? dataCategoryMens[0].id : ""
       }`,
       icon: <Venus />,
     },
     {
-      label: "Masculinos",
+      label: "Femininos",
       href: `/products/category/${
         dataCategoryWomens ? dataCategoryWomens[0].id : ""
       }`,

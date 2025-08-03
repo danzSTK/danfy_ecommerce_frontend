@@ -10,7 +10,11 @@ type Props = {
 };
 
 export default function Header({ navigationMenuItems }: Props) {
-  const { openSidebar } = useSidebarContext();
+  const { openSidebar, open } = useSidebarContext();
+
+  const handleOpenSidebar = () => {
+    openSidebar("menu");
+  };
 
   //TODO: Adicionar tratativas de erros e loading da requisiçao. Fazer skeletons nos components quando estiver Loading e quebrar o layout caso aconteça um erro(o que nao pode acontecer)
 
@@ -93,7 +97,8 @@ export default function Header({ navigationMenuItems }: Props) {
             className="flex justify-end md:hidden"
             variant="ghost"
             size="icon"
-            onClick={() => openSidebar("menu")}
+            type="button"
+            onClick={handleOpenSidebar}
           >
             <AlignRight className="size-6" />
           </Button>

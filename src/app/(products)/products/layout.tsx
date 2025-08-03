@@ -4,6 +4,8 @@
 
 import Header from "@/components/header/header";
 import { NavContentType } from "@/components/nav-menu/navMenu";
+import { Sidebar } from "@/components/sidebar/siderbar";
+import { FilterSidebarProvider } from "@/hooks/useFilterSidebarContext";
 import { SidebarProvider } from "@/hooks/useSidebarContext";
 import { useGetAllCategoriesQuery } from "@/services/routes/categories";
 import { House, Package, Venus, Mars } from "lucide-react";
@@ -28,14 +30,14 @@ export default function ProductsLayout({ children }: { children: ReactNode }) {
     { label: "Home", href: "/", icon: <House /> },
     { label: "Destaques", href: "/products", icon: <Package /> },
     {
-      label: "Femininos",
+      label: "Masculinos",
       href: `/products/category/${
         dataCategoryMens ? dataCategoryMens[0].id : ""
       }`,
       icon: <Venus />,
     },
     {
-      label: "Masculinos",
+      label: "Femininos",
       href: `/products/category/${
         dataCategoryWomens ? dataCategoryWomens[0].id : ""
       }`,
@@ -45,10 +47,12 @@ export default function ProductsLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <SidebarProvider>
-        <Header navigationMenuItems={navigationMenuItems} />
+        <FilterSidebarProvider>
+          <Header navigationMenuItems={navigationMenuItems} />
+          <Sidebar navigationMenuItems={navigationMenuItems} />
+          {children}
+        </FilterSidebarProvider>
       </SidebarProvider>
-
-      {children}
     </>
   );
 }

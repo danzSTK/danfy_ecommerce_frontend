@@ -15,7 +15,6 @@ export type CardProductsType = {
 export const CardProducts = ({
   basePrice,
   description,
-  id,
   imageUrl,
   name,
   router,
@@ -23,10 +22,10 @@ export const CardProducts = ({
   return (
     <Link href={router} className="group">
       <CardBase
-        className=" md:grid md:grid-cols-[1fr_auto] gap-2 items-start"
+        className=" md:grid md:grid-cols-[1fr_auto] gap-2 items-start pb-5"
         imageUrl={imageUrl}
         alt="Imagem do produto"
-        aspectRadio="aspect-[3/4]"
+        aspectRadio="aspect-portrait" //aspect-[3/4]
       >
         <div className="min-w-0">
           <CardTitle>{name}</CardTitle>

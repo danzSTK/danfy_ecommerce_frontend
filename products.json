@@ -1,0 +1,264 @@
+[
+  {
+    "name": "Regata Esportiva DryFit",
+    "description": "Regata masculina ideal para treinos, com tecido leve e respirável que absorve o suor, garantindo conforto e mobilidade.",
+    "basePrice": 49.90,
+    "isActive": true,
+    "categoriesId": ["6b2c6f08-2bc2-4920-b71b-e97180a382ec"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752944231/products/1752944026941-Regata%20Oversized%20Preto%20de%20Algod%C3%83%C2%A3o%20Estilo%20Academia%20Fitness%20Estampa%20Gym%20Hub.jpg",
+    "imagePublicId": "regata-esportiva-dryfit",
+    "variants": [
+      {
+        "price": 49.90,
+        "size": "sm",
+        "color": "Preto",
+        "imageUrl": "https://images-americanas.b2w.io/produtos/01/00/oferta/134/5/1345632_1GG.jpg",
+        "stock": 50,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Regata Casual Algodão",
+    "description": "Regata casual em algodão, perfeita para dias quentes, combinando conforto e estilo despojado.",
+    "basePrice": 39.90,
+    "isActive": true,
+    "categoriesId": ["6b2c6f08-2bc2-4920-b71b-e97180a382ec"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752944974/products/1752944769992-camisa_regata_oversize.jpg",
+    "imagePublicId": "products/1752944769992-camisa_regata_oversize",
+    "variants": [
+      {
+        "price": 39.90,
+        "size": "md",
+        "color": "Branco",
+        "imageUrl": "https://static.netshoes.com.br/produtos/regata-hang-loose-tropical/06/D68-2194-006/D68-2194-006_zoom1.jpg",
+        "stock": 60,
+        "isActive": true
+      },
+      {
+        "price": 39.90,
+        "size": "lg",
+        "color": "Azul",
+        "imageUrl": "https://static.netshoes.com.br/produtos/regata-hang-loose-tropical/86/D68-2194-086/D68-2194-086_zoom1.jpg",
+        "stock": 30,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Blusa Polo Piquet",
+    "description": "Blusa polo em tecido piquet, ideal para ocasiões casuais ou semi-formais, com toque elegante e confortável.",
+    "basePrice": 89.90,
+    "isActive": true,
+    "categoriesId": ["5784e7da-110c-42f5-929e-b690b43b4434"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752945233/products/1752945029020-camisa_polo_fds.jpg",
+    "imagePublicId": "products/1752945029020-camisa_polo_fds",
+    "variants": [
+      {
+        "price": 89.90,
+        "size": "md",
+        "color": "Azul-Marinho",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752945233/products/1752945029020-camisa_polo_fds.jpg",
+        "stock": 45,
+        "isActive": true
+      },
+      {
+        "price": 89.90,
+        "size": "lg",
+        "color": "Branco",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752945233/products/1752945029020-camisa_polo_fds.jpg",
+        "stock": 35,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Blusa Manga Longa Casual",
+    "description": "Blusa masculina de manga longa em algodão, perfeita para climas amenos, com corte moderno e confortável.",
+    "basePrice": 79.90,
+    "isActive": true,
+    "categoriesId": ["5784e7da-110c-42f5-929e-b690b43b4434"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752945887/products/1752945683129-camisa_manga_longa.jpg",
+    "imagePublicId": "products/1752945683129-camisa_manga_longa",
+    "variants": [
+      {
+        "price": 79.90,
+        "size": "sm",
+        "color": "Cinza",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752945887/products/1752945683129-camisa_manga_longa.jpg",
+        "stock": 50,
+        "isActive": true
+      },
+      {
+        "price": 79.90,
+        "size": "lg",
+        "color": "Preto",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752945887/products/1752945683129-camisa_manga_longa.jpg",
+        "stock": 40,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Bermuda Cargo Sarja",
+    "description": "Bermuda cargo em sarja, com bolsos laterais funcionais, ideal para um visual urbano e prático.",
+    "basePrice": 99.90,
+    "isActive": true,
+    "categoriesId": ["61da153f-0950-4ba4-93cb-a62c10c60d83"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946052/products/1752945848536-bermuda_sarja.jpg",
+    "imagePublicId": "products/1752945848536-bermuda_sarja",
+    "variants": [
+      {
+        "price": 99.90,
+        "size": "md",
+        "color": "Bege",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946052/products/1752945848536-bermuda_sarja.jpg",
+        "stock": 30,
+        "isActive": true
+      },
+      {
+        "price": 99.90,
+        "size": "lg",
+        "color": "Verde-Militar",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946052/products/1752945848536-bermuda_sarja.jpg",
+        "stock": 25,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Bermuda Jeans Slim",
+    "description": "Bermuda jeans com corte slim, perfeita para looks casuais e modernos, com lavagem contemporânea.",
+    "basePrice": 89.90,
+    "isActive": true,
+    "categoriesId": ["61da153f-0950-4ba4-93cb-a62c10c60d83"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946225/products/1752946021129-bermuda_jeans_slim.jpg",
+    "imagePublicId": "products/1752946021129-bermuda_jeans_slim",
+    "variants": [
+      {
+        "price": 89.90,
+        "size": "sm",
+        "color": "Azul-Escuro",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946225/products/1752946021129-bermuda_jeans_slim.jpg",
+        "stock": 35,
+        "isActive": true
+      },
+      {
+        "price": 89.90,
+        "size": "md",
+        "color": "Azul-Claro",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946225/products/1752946021129-bermuda_jeans_slim.jpg",
+        "stock": 30,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Calça Chino Slim",
+    "description": "Calça chino com corte slim, ideal para ocasiões casuais ou semi-formais, com tecido leve e confortável.",
+    "basePrice": 129.90,
+    "isActive": true,
+    "categoriesId": ["b1733b8f-abc3-498d-b8d3-f99afe3af4dc"],
+    "defaultImageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946411/products/1752946207115-calca_chino_slim.jpg",
+    "imagePublicId": "products/1752946207115-calca_chino_slim",
+    "variants": [
+      {
+        "price": 129.90,
+        "size": "md",
+        "color": "Azul-Marinho",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946411/products/1752946207115-calca_chino_slim.jpg",
+        "stock": 40,
+        "isActive": true
+      },
+      {
+        "price": 129.90,
+        "size": "lg",
+        "color": "Bege",
+        "imageUrl": "https://res.cloudinary.com/dxeudroht/image/upload/v1752946411/products/1752946207115-calca_chino_slim.jpg",
+        "stock": 35,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Calça Jeans Reta",
+    "description": "Calça jeans com corte reto, um clássico atemporal que combina com diversos looks casuais.",
+    "basePrice": 119.90,
+    "isActive": true,
+    "categoriesId": ["b1733b8f-abc3-498d-b8d3-f99afe3af4dc"],
+    "defaultImageUrl": "https://static.netshoes.com.br/produtos/calca-jeans-masculina-ckf-wear-reta/06/D89-0177-006/D89-0177-006_zoom1.jpg",
+    "imagePublicId": "calca-jeans-reta",
+    "variants": [
+      {
+        "price": 119.90,
+        "size": "sm",
+        "color": "Azul-Médio",
+        "imageUrl": "https://static.netshoes.com.br/produtos/calca-jeans-masculina-ckf-wear-reta/06/D89-0177-006/D89-0177-006_zoom1.jpg",
+        "stock": 50,
+        "isActive": true
+      },
+      {
+        "price": 119.90,
+        "size": "md",
+        "color": "Preto",
+        "imageUrl": "https://static.netshoes.com.br/produtos/calca-jeans-masculina-ckf-wear-reta/14/D89-0177-014/D89-0177-014_zoom1.jpg",
+        "stock": 45,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Regata Tactel Esportiva",
+    "description": "Regata tactel para atividades físicas, com secagem rápida e design ergonômico para maior liberdade de movimento.",
+    "basePrice": 59.90,
+    "isActive": true,
+    "categoriesId": ["6b2c6f08-2bc2-4920-b71b-e97180a382ec"],
+    "defaultImageUrl": "https://static.netshoes.com.br/produtos/regata-nike-dry-fit-miler/06/D12-3456-006/D12-3456-006_zoom1.jpg",
+    "imagePublicId": "regata-tactel-esportiva",
+    "variants": [
+      {
+        "price": 59.90,
+        "size": "md",
+        "color": "Vermelho",
+        "imageUrl": "https://static.netshoes.com.br/produtos/regata-nike-dry-fit-miler/06/D12-3456-006/D12-3456-006_zoom1.jpg",
+        "stock": 30,
+        "isActive": true
+      },
+      {
+        "price": 59.90,
+        "size": "lg",
+        "color": "Preto",
+        "imageUrl": "https://static.netshoes.com.br/produtos/regata-nike-dry-fit-miler/14/D12-3456-014/D12-3456-014_zoom1.jpg",
+        "stock": 25,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "name": "Blusa Moletom Casual",
+    "description": "Blusa moletom com capuz, ideal para dias frios, oferecendo conforto e estilo descontraído.",
+    "basePrice": 99.90,
+    "isActive": true,
+    "categoriesId": ["5784e7da-110c-42f5-929e-b690b43b4434"],
+    "defaultImageUrl": "https://static.netshoes.com.br/produtos/blusa-de-moletom-gap-fechada/06/D16-1234-006/D16-1234-006_zoom1.jpg",
+    "imagePublicId": "blusa-moletom-casual",
+    "variants": [
+      {
+        "price": 99.90,
+        "size": "sm",
+        "color": "Cinza",
+        "imageUrl": "https://static.netshoes.com.br/produtos/blusa-de-moletom-gap-fechada/06/D16-1234-006/D16-1234-006_zoom1.jpg",
+        "stock": 40,
+        "isActive": true
+      },
+      {
+        "price": 99.90,
+        "size": "md",
+        "color": "Azul",
+        "imageUrl": "https://static.netshoes.com.br/produtos/blusa-de-moletom-gap-fechada/86/D16-1234-086/D16-1234-086_zoom1.jpg",
+        "stock": 35,
+        "isActive": true
+      }
+    ]
+  }
+]

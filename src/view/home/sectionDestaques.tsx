@@ -2,73 +2,52 @@ import { CardProducts } from "@/components/cards/cardForProducts";
 import CarouselWrapper from "@/components/carousel/carousel";
 import SectionTitle from "@/components/titles/SectionTitle";
 
-import imagemTesteCardProduct from "../../../public/images/image-card-product.png";
+import { useGetProductsQuery } from "@/services/routes/products";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ErrorState } from "../products/CategoryList";
 
-//TODO: Achar outra forma para compartilhar esses slides 
+//TODO: Achar outra forma para compartilhar esses slides
 
 const SectionDestaques = () => {
-  const sliders = [
-    <CardProducts
-      key={1}
-      alt="Imagem destaque de produtos em destaque"
-      brand="Jhanvi’s  Brand"
-      title="Black Sweatshirt withmhskjhkHA"
-      price={123.0}
-      imageUrl={imagemTesteCardProduct.src}
-      router={""}
-    />,
-    <CardProducts
-      key={2}
-      alt="Imagem destaque de produtos em destaque"
-      brand="Jhanvi’s  Brand"
-      title="Black Sweatshirt with"
-      price={123.0}
-      imageUrl={imagemTesteCardProduct.src}
-      router={""}
-    />,
-    <CardProducts
-      key={3}
-      alt="Imagem destaque de produtos em destaque"
-      brand="Jhanvi’s  Brand"
-      title="Black Sweatshirt with"
-      price={123.0}
-      imageUrl={imagemTesteCardProduct.src}
-      router={""}
-    />,
-    <CardProducts
-      key={4}
-      alt="Imagem destaque de produtos em destaque"
-      brand="Jhanvi’s  Brand"
-      title="Black Sweatshirt with"
-      price={123.0}
-      imageUrl={imagemTesteCardProduct.src}
-      router={""}
-    />,
-    <CardProducts
-      key={5}
-      alt="Imagem destaque de produtos em destaque"
-      brand="Jhanvi’s  Brand"
-      title="Black Sweatshirt with"
-      price={123.0}
-      imageUrl={imagemTesteCardProduct.src}
-      router={""}
-    />,
-    <CardProducts
-      key={6}
-      alt="Imagem destaque de produtos em destaque"
-      brand="Jhanvi’s  Brand"
-      title="Black Sweatshirt with"
-      price={123.0}
-      imageUrl={imagemTesteCardProduct.src}
-      router={""}
-    />,
-  ];
+  const { data, error, isLoading } = useGetProductsQuery();
   return (
     <section className="my-20 container">
       <SectionTitle className="mb-8">Em destaque</SectionTitle>
-      <article>
-        <CarouselWrapper variant="card" sliders={sliders} />
-      </article>
+      {isLoading && (
+        <CarouselWrapper
+          variant="card"
+          sliders={Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-4">
+              <Skeleton className="w-full h-[280px]" />
+              <Skeleton className="w-3/4 h-5" />
+              <Skeleton className="w-1/2 h-5" />
+            </div>
+          ))}
+        />
+      )}
+
+      {data && data.length > 0 && !error && (
+        <article>
+          <CarouselWrapper
+            variant="card"
+            sliders={data.map((product) => {
+              return (
+                <CardProducts
+                  key={product.id}
+                  basePrice={product.basePrice}
+                  description={product.description}
+                  id={product.id}
+                  imageUrl={product.defaultImageUrl}
+                  name={product.name}
+                  router=""
+                />
+              );
+            })}
+          />
+        </article>
+      )}
+
+      {!data && error && <ErrorState />}
     </section>
   );
 };

@@ -47,7 +47,7 @@ export function Sidebar({ navigationMenuItems }: Props) {
     >
       <aside
         className={cn(
-          "absolute right-0 top-0 h-full w-md max-w-full bg-sidebar shadow-lg transition-transform duration-300",
+          "absolute right-0 top-0 h-full w-md max-w-full bg-sidebar shadow-lg transition-transform duration-300 z-10",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >

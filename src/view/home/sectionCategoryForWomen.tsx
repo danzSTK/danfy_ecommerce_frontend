@@ -28,6 +28,7 @@ const SectionCategoryWomen = () => {
       <SectionTitle className="mb-8">Cateorias para Mulheres</SectionTitle>
 
       {isLoading && (
+        //TODO: criar um component de LoadingCard utilizando essa base pois estou usando em mais de uma view
         <CarouselWrapper
           variant="card"
           sliders={Array.from({ length: 8 }).map((_, index) => (
