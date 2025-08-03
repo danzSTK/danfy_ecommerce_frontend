@@ -10,10 +10,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { LayoutDashboard } from "lucide-react";
-import { navigationMenuItems } from "@/app/(base)/page";
+import { NavContentType } from "../nav-menu/navMenu";
+
+type Props = {
+  navigationMenuItems?: NavContentType[];
+};
 
 //TODO: Corrigir e achar outra forma de compartilhar esse elemento sem fazer o ternario por tipo, facilitando o uso e sua construção mais semantica \ fazer uma forma de centralizar os caminhos e rotas para nao mudar devido ao layout, lembrando que no mobile as rotas estao hight code / magic string
-export function Sidebar(/* { children }: { children: React.ReactNode } */) {
+export function Sidebar({ navigationMenuItems }: Props) {
   const { open, closeSidebar, type } = useSidebarContext();
   const backdropRef = useRef<HTMLDivElement>(null);
 
@@ -64,19 +68,20 @@ export function Sidebar(/* { children }: { children: React.ReactNode } */) {
               </SidebarGroupLabel>
 
               <SidebarGroup className="max-w-11/12 mx-auto my-0 flex gap-2">
-                {navigationMenuItems.map((item) => (
-                  <Button
-                    asChild
-                    variant="secondary"
-                    key={item.label}
-                    className=""
-                  >
-                    <Link href={item.href} className="flex gap-2">
-                      {item.icon}
-                      {item.label}
-                    </Link>
-                  </Button>
-                ))}
+                {navigationMenuItems &&
+                  navigationMenuItems.map((item) => (
+                    <Button
+                      asChild
+                      variant="secondary"
+                      key={item.label}
+                      className=""
+                    >
+                      <Link href={item.href} className="flex gap-2">
+                        {item.icon}
+                        {item.label}
+                      </Link>
+                    </Button>
+                  ))}
               </SidebarGroup>
             </section>
             <section className="my-4">

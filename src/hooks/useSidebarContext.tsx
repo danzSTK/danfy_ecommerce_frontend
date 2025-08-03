@@ -1,4 +1,5 @@
 "use client";
+import { NavContentType } from "@/components/nav-menu/navMenu";
 import React, { useContext, useEffect, useState } from "react";
 
 type SidebarType = "cart" | "favorites" | "menu" | "profile" | "fixed" | null;
@@ -23,6 +24,7 @@ export const SidebarProvider = ({
   children,
 }: {
   children: React.ReactNode;
+  navigationMenuItems?: NavContentType[];
 }) => {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<SidebarType>(null);

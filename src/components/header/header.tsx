@@ -1,14 +1,39 @@
 "use client";
-import { AlignRight, Heart, Search, ShoppingCart, User } from "lucide-react";
+import { AlignRight, Heart, ShoppingCart, User } from "lucide-react";
 import { NavContentType, NavMenu } from "../nav-menu/navMenu";
-import ToggleThemeButton from "../toggle-theme-button/toggleThemeButton";
 import { CardTitle } from "../ui/card";
 import { useSidebarContext } from "@/hooks/useSidebarContext";
 import { Button } from "../ui/button";
-import { navigationMenuItems } from "@/app/(base)/page";
 
-export default function Header() {
+type Props = {
+  navigationMenuItems: NavContentType[];
+};
+
+export default function Header({ navigationMenuItems }: Props) {
   const { openSidebar } = useSidebarContext();
+
+  //TODO: Adicionar tratativas de erros e loading da requisiçao. Fazer skeletons nos components quando estiver Loading e quebrar o layout caso aconteça um erro(o que nao pode acontecer)
+
+  //TODO: Pensar em uma forma de criar uma router ou cache para receber rotas e label direto do backend
+
+  /*  const navigationMenuItems: NavContentType[] = [
+    { label: "Home", href: "/", icon: <House /> },
+    { label: "Destaques", href: "/products", icon: <Package /> },
+    {
+      label: "Femininos",
+      href: `/products/category/${
+        dataCategoryMens ? dataCategoryMens[0].id : ""
+      }`,
+      icon: <Venus />,
+    },
+    {
+      label: "Masculinos",
+      href: `/products/category/${
+        dataCategoryWomens ? dataCategoryWomens[0].id : ""
+      }`,
+      icon: <Mars />,
+    },
+  ]; */
 
   // TODO: Corrigir e concentrar em local para armazenar sobre informações de caminhos relativos
 
@@ -27,18 +52,18 @@ export default function Header() {
     { label: "your favorites products", icon: <Heart />, href: "/favorites" },
   ];
   return (
-    <header className="bg-popover py-5">
+    <header className="bg-popover py-5 z-50 fixed top-0 left-0 right-0">
       <div className="container mx-auto flex items-center justify-between">
-        <CardTitle className="text-base md:text-xl font-bold font-mono uppercase">
-          Danfy Shopfy
+        <CardTitle className="text-base md:text-2xl font-bold font-mono uppercase">
+          DanfyShop
         </CardTitle>
         <NavMenu
-          className="hidden lg:block"
+          className="hidden md:block"
           size="default"
           variant="ghost"
           items={navigationMenuItems}
         />
-        <label
+        {/* <label
           htmlFor="input-search"
           className="hidden md:flex items-center gap-2 bg-secondary shadow-2xs w-60 px-5 py-2 rounded-lg hover:border-primary border-transparent border"
         >
@@ -49,7 +74,7 @@ export default function Header() {
             className="border-none outline-none text-sm"
             placeholder="Search..."
           />
-        </label>
+        </label> */}
         <NavMenu
           className="hidden md:block ml-2"
           size="icon"
@@ -73,7 +98,6 @@ export default function Header() {
             <AlignRight className="size-6" />
           </Button>
         </div>
-        <ToggleThemeButton className="hidden md:block" />
       </div>
     </header>
   );
