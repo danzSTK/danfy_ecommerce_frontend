@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import CategoryFilter from "@/components/sidebar/filtersSidebar";
 import { SlidersHorizontal } from "lucide-react";
 import { useFilterSidebarContext } from "@/hooks/useFilterSidebarContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const LoadingSkeleton = () => (
   <section className="container">
@@ -82,6 +83,7 @@ export default function CategoryList() {
     error: errorCategory,
   } = useGetOneCategoryQuery(slug);
   const { openSidebar, open } = useFilterSidebarContext();
+  const isMobile = useIsMobile();
 
   const handleSidebar = () => {
     openSidebar(true);
@@ -136,20 +138,22 @@ export default function CategoryList() {
                       Recommended
                     </button>
                   </li>
-                  <li>
-                    <button
-                      className={cn(
-                        `flex items-center gap-1 font-medium text-base md:text-lg transition-colors hover:text-primary cursor-pointer`,
-                        selectedFilterList === "recommended" && "text-chart-3"
-                      )}
-                      type="button"
-                      //TODO: corrigir nome da function
-                      onClick={() => handleSidebar()}
-                    >
-                      <span>Filtros</span>
-                      <SlidersHorizontal className="size-4" />
-                    </button>
-                  </li>
+                  {isMobile && (
+                    <li>
+                      <button
+                        className={cn(
+                          `flex items-center gap-1 font-medium text-base md:text-lg transition-colors hover:text-primary cursor-pointer`,
+                          selectedFilterList === "recommended" && "text-chart-3"
+                        )}
+                        type="button"
+                        //TODO: corrigir nome da function
+                        onClick={() => handleSidebar()}
+                      >
+                        <span>Filtros</span>
+                        <SlidersHorizontal className="size-4" />
+                      </button>
+                    </li>
+                  )}
                 </ul>
               </header>
               <ProductGrid products={products} />
