@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import ProductGrid from "@/components/sections/ProductGrid";
@@ -9,6 +10,8 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import CategoryFilter from "@/components/sidebar/filtersSidebar";
+import { SlidersHorizontal } from "lucide-react";
+import { useFilterSidebarContext } from "@/hooks/useFilterSidebarContext";
 
 const LoadingSkeleton = () => (
   <section className="container">
@@ -35,7 +38,9 @@ const LoadingSkeleton = () => (
   </section>
 );
 
-export const ErrorState = ({ message = "Desculpe, ocorreu um erro inesperado" }) => (
+export const ErrorState = ({
+  message = "Desculpe, ocorreu um erro inesperado",
+}) => (
   <div className="container flex flex-col items-center justify-center min-h-[400px]">
     <svg
       className="w-16 h-16 text-gray-400 mb-4"
@@ -76,14 +81,16 @@ export default function CategoryList() {
     isLoading: loadingCategory,
     error: errorCategory,
   } = useGetOneCategoryQuery(slug);
+  const { openSidebar, open } = useFilterSidebarContext();
+
+  const handleSidebar = () => {
+    openSidebar(true);
+  };
 
   const onSelectFilterList = (filter: "new" | "recommended") => {
     setSelectedFilterList(filter);
   };
 
-  useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
   return (
     <>
       {isLoading || (loadingCategory && <LoadingSkeleton />)}
@@ -93,44 +100,60 @@ export default function CategoryList() {
       {!error && !errorCategory && products && category && (
         <section className=" flex w-full">
           <CategoryFilter
-            className="ml-7"
+            className=""
             categories={category.children}
             onSelectCategory={(categoryId) => setSelectedCategory(categoryId)}
             slug={slug}
           />
-          <article className="container">
-            <header className="flex justify-between font-serif my-10">
-              <h2 className="font-bold font-sans text-xl capitalize">
-                Roupas {category.name}
-              </h2>
-              <ul className="flex gap-6">
-                <li>
-                  <button
-                    className={cn(
-                      `font-medium text-lg transition-colors hover:text-primary cursor-pointer`,
-                      selectedFilterList === "new" && "text-chart-3"
-                    )}
-                    type="button"
-                    onClick={() => onSelectFilterList("new")}
-                  >
-                    New
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={cn(
-                      `font-medium text-lg transition-colors hover:text-primary cursor-pointer`,
-                      selectedFilterList === "recommended" && "text-chart-3"
-                    )}
-                    type="button"
-                    onClick={() => onSelectFilterList("recommended")}
-                  >
-                    Recommended
-                  </button>
-                </li>
-              </ul>
-            </header>
-            <ProductGrid products={products} />
+          <article className="flex-1 pt-12 md:ml-5">
+            <div className="container">
+              <header className="sm:flex justify-between font-serif my-10">
+                <h2 className="font-bold font-sans text-xl capitalize">
+                  Roupas {category.name}
+                </h2>
+                <ul className="flex gap-3 md:gap-6">
+                  <li>
+                    <button
+                      className={cn(
+                        `font-medium text-base md:text-lg transition-colors hover:text-primary cursor-pointer`,
+                        selectedFilterList === "new" && "text-chart-3"
+                      )}
+                      type="button"
+                      onClick={() => onSelectFilterList("new")}
+                    >
+                      New
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={cn(
+                        `font-medium text-base md:text-lg transition-colors hover:text-primary cursor-pointer`,
+                        selectedFilterList === "recommended" && "text-chart-3"
+                      )}
+                      type="button"
+                      onClick={() => onSelectFilterList("recommended")}
+                    >
+                      Recommended
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={cn(
+                        `flex items-center gap-1 font-medium text-base md:text-lg transition-colors hover:text-primary cursor-pointer`,
+                        selectedFilterList === "recommended" && "text-chart-3"
+                      )}
+                      type="button"
+                      //TODO: corrigir nome da function
+                      onClick={() => handleSidebar()}
+                    >
+                      <span>Filtros</span>
+                      <SlidersHorizontal className="size-4" />
+                    </button>
+                  </li>
+                </ul>
+              </header>
+              <ProductGrid products={products} />
+            </div>
           </article>
         </section>
       )}
