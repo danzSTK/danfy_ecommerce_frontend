@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import { useState, useEffect, useRef, useMemo, RefObject } from "react";
+import { useState, useRef, useMemo, RefObject } from "react";
 
 import { SidebarContent, SidebarGroupLabel } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
@@ -30,7 +29,6 @@ interface CategoryFilterProps {
   slug?: string;
 }
 
-// TODO: Corrigir bug critico. Está aberto no layout mobile
 export default function CategoryFilter({
   categories,
   onSelectCategory,
@@ -42,9 +40,9 @@ export default function CategoryFilter({
   const [priceRange, setPriceRange] = useState<number[]>([200, 700]);
   const [collapsiIsOpen, setCollapsiIsOpen] = useState(true);
   const backdropRef = useRef<HTMLElement | null>(null);
-  const { closeSidebar, openSidebar, open } = useFilterSidebarContext();
-
+  const { closeSidebar, open } = useFilterSidebarContext();
   const isMobile = useIsMobile();
+
   useOnClickOutside(
     backdropRef as never as RefObject<HTMLElement>,
     closeSidebar
@@ -53,6 +51,14 @@ export default function CategoryFilter({
   const handleCategoryChange = (id: string) => {
     setSelected(id);
     onSelectCategory(id);
+    closeSidebar();
+  };
+
+  const clearFilterSidebar = () => {
+    setSelected(slug || "");
+    onSelectCategory(slug || "");
+    setPriceRange([200, 700]);
+    closeSidebar();
   };
 
   const shouldShowSidebar = useMemo(() => {
@@ -85,7 +91,7 @@ export default function CategoryFilter({
       >
         <SidebarContent className="h-full">
           <SidebarGroupLabel className="font-semibold text-lg flex justify-between">
-            Filtro
+            <span>Filtro</span>
             <span className="hidden md:block">
               <SlidersHorizontal />
             </span>
@@ -99,14 +105,7 @@ export default function CategoryFilter({
           <div>
             <SidebarGroupLabel className="font-semibold text-lg flex justify-between mb-2">
               Categorias{" "}
-              <Button
-                onClick={() => {
-                  setSelected(slug || "");
-                  onSelectCategory(slug || "");
-                }}
-                size="sm"
-                variant="ghost"
-              >
+              <Button onClick={clearFilterSidebar} size="sm" variant="ghost">
                 Limpar
               </Button>
             </SidebarGroupLabel>

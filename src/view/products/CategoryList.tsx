@@ -82,7 +82,7 @@ export default function CategoryList() {
     isLoading: loadingCategory,
     error: errorCategory,
   } = useGetOneCategoryQuery(slug);
-  const { openSidebar, open } = useFilterSidebarContext();
+  const { openSidebar } = useFilterSidebarContext();
   const isMobile = useIsMobile();
 
   const handleSidebar = () => {
@@ -96,9 +96,11 @@ export default function CategoryList() {
   return (
     <>
       {isLoading || (loadingCategory && <LoadingSkeleton />)}
+
       {(error || errorCategory) && (
         <ErrorState message="Não foi possível carregar os produtos" />
       )}
+
       {!error && !errorCategory && products && category && (
         <section className=" flex w-full">
           <CategoryFilter
