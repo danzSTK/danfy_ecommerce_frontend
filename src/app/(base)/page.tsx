@@ -72,47 +72,6 @@ export default function Home() {
     filaLogo.src,
     pulmaLogo.src,
   ];
-
-  //TODO: decidir se vai ou nao utilizar feedbacks para retirar esses dados mocados
-  /*   const feedbacks: Feedback[] = [
-    {
-      comment:
-        "Testando o comentario via props e logo após eu sei lá meu irmao",
-      name: "Danielzin lorem 1",
-      userPhoto: userPhotoTeste.src,
-    },
-    {
-      comment:
-        "Testando o comentario via props e logo após eu sei lá meu irmao",
-      name: "Danielzin lorem 2",
-      userPhoto: userPhotoTeste.src,
-    },
-    {
-      comment:
-        "Testando o comentario via props e logo após eu sei lá meu irmao",
-      name: "Danielzin lorem 3",
-      userPhoto: userPhotoTeste.src,
-    },
-    {
-      comment:
-        "Testando o comentario via props e logo após eu sei lá meu irmao",
-      name: "Danielzin lorem 4",
-      userPhoto: userPhotoTeste.src,
-    },
-    {
-      comment:
-        "Testando o comentario via props e logo após eu sei lá meu irmao",
-      name: "Danielzin lorem 5",
-      userPhoto: userPhotoTeste.src,
-    },
-    {
-      comment:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, veritatis cum, dolores ratione iure optio similique ab vero sint cupiditate accusamus obcaecati minus blanditiis, nihil quidem inventore assumenda nisi quod?   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus, veritatis cum, dolores ratione iure optio similique ab vero sint cupiditate accusamus obcaecati minus blanditiis, nihil quidem inventore assumenda nisi quod?",
-      userPhoto: userPhotoTeste.src,
-      name: "Danielzin Lorem 6",
-    },
-  ];
- */
   const count = useSelector((state: RootState) => state.example.count);
   const dispatch = useDispatch<AppDispatch>();
   const { data, isLoading } = useGetAllCategoriesQuery({});

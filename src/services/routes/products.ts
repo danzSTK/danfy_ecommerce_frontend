@@ -12,9 +12,17 @@ export const productsApi = api.injectEndpoints({
         params: { categoryId },
       }),
     }),
+    getOneProduct: builder.query<ProductResponseInterface, string>({
+      query: (productId) => ({
+        url: `/products/${productId}`,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetProductsQuery, useGetProductsByCategoryQuery } =
-  productsApi;
+export const {
+  useGetProductsQuery,
+  useGetProductsByCategoryQuery,
+  useGetOneProductQuery,
+} = productsApi;

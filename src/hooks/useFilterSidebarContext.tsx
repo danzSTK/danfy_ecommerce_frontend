@@ -4,6 +4,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -23,7 +24,7 @@ const FilterSidebarContext = createContext<SidebarContextType>({
 
 export const FilterSidebarProvider = ({
   children,
-  defaultOpen = true,
+  defaultOpen = false,
 }: {
   children: ReactNode;
   defaultOpen?: boolean;
@@ -52,10 +53,18 @@ export const FilterSidebarProvider = ({
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
+  const value = useMemo(
+    () => ({
+      open,
+      openSidebar,
+      closeSidebar,
+      defaultOpen,
+    }),
+    [open, defaultOpen]
+  );
+
   return (
-    <FilterSidebarContext.Provider
-      value={{ open, openSidebar, closeSidebar, defaultOpen }}
-    >
+    <FilterSidebarContext.Provider value={value}>
       {children}
     </FilterSidebarContext.Provider>
   );

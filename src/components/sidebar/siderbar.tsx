@@ -4,12 +4,11 @@ import Link from "next/link";
 
 import { useSidebarContext } from "@/hooks/useSidebarContext";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronUp, User, X } from "lucide-react";
+import { ChevronDown, ChevronUp, User, X, LayoutDashboard } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { LayoutDashboard } from "lucide-react";
 import { NavContentType } from "../nav-menu/navMenu";
 
 type Props = {
@@ -17,7 +16,7 @@ type Props = {
 };
 
 //TODO: Corrigir e achar outra forma de compartilhar esse elemento sem fazer o ternario por tipo, facilitando o uso e sua construção mais semantica \ fazer uma forma de centralizar os caminhos e rotas para nao mudar devido ao layout, lembrando que no mobile as rotas estao hight code / magic string
-export function Sidebar({ navigationMenuItems }: Props) {
+export function Sidebar({ navigationMenuItems }: Readonly<Props>) {
   const { open, closeSidebar, type } = useSidebarContext();
   const backdropRef = useRef<HTMLDivElement>(null);
 
@@ -68,20 +67,23 @@ export function Sidebar({ navigationMenuItems }: Props) {
               </SidebarGroupLabel>
 
               <SidebarGroup className="max-w-11/12 mx-auto my-0 flex gap-2">
-                {navigationMenuItems &&
-                  navigationMenuItems.map((item) => (
-                    <Button
-                      asChild
-                      variant="secondary"
-                      key={item.label}
-                      className=""
+                {navigationMenuItems?.map((item) => (
+                  <Button
+                    asChild
+                    variant="secondary"
+                    key={item.label}
+                    className=""
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={closeSidebar}
+                      className="flex gap-2"
                     >
-                      <Link href={item.href} className="flex gap-2">
-                        {item.icon}
-                        {item.label}
-                      </Link>
-                    </Button>
-                  ))}
+                      {item.icon}
+                      {item.label}
+                    </Link>
+                  </Button>
+                ))}
               </SidebarGroup>
             </section>
             <section className="my-4">

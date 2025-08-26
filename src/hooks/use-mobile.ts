@@ -1,19 +1,7 @@
-import * as React from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 780);
-    };
-
-    checkIsMobile();
-
-    window.addEventListener("resize", checkIsMobile);
-
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return isMobile;
 }

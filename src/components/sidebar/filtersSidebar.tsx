@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, RefObject } from "react";
 
 import { SidebarContent, SidebarGroupLabel } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
-import { ChevronUp, SlidersHorizontal } from "lucide-react";
+import { ChevronUp, SlidersHorizontal, X } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import {
@@ -14,7 +14,8 @@ import {
 } from "../ui/collapsible";
 import { Slider } from "../ui/slider";
 import { useFilterSidebarContext } from "@/hooks/useFilterSidebarContext";
-import React from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useOnClickOutside } from "usehooks-ts";
 
 type Category = {
   id: string;
@@ -36,81 +37,63 @@ export default function CategoryFilter({
   defaultSelected,
   className,
   slug,
-}: CategoryFilterProps) {
+}: Readonly<CategoryFilterProps>) {
   const [selected, setSelected] = useState(defaultSelected || "");
   const [priceRange, setPriceRange] = useState<number[]>([200, 700]);
-  const [collapsiIsOpen, setIsOpen] = useState(true);
-  const backdropRef = useRef<HTMLDivElement>(null);
+  const [collapsiIsOpen, setCollapsiIsOpen] = useState(true);
+  const backdropRef = useRef<HTMLElement | null>(null);
   const { closeSidebar, openSidebar, open } = useFilterSidebarContext();
 
-  const [isTablet, setIsTablet] = React.useState<boolean>(false);
+  const isMobile = useIsMobile();
+  useOnClickOutside(
+    backdropRef as never as RefObject<HTMLElement>,
+    closeSidebar
+  );
 
   const handleCategoryChange = (id: string) => {
     setSelected(id);
     onSelectCategory(id);
   };
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    console.log("esse é o valor da minha mediaQuery", mediaQuery);
+  const shouldShowSidebar = useMemo(() => {
+    if (!isMobile) return true;
 
-    // Apenas seta o estado inicial sem abrir/fechar sidebar
-    setIsTablet(!mediaQuery.matches);
-
-    const handleScreenChange = (e: MediaQueryListEvent) => {
-      const isDesktop = e.matches;
-      console.log(
-        "Esse é o valor incial do isDesktop quando a function handleScreenChange é chamada",
-        isDesktop
-      );
-      setIsTablet(!isDesktop);
-
-      // Só aplica ação quando o tamanho REALMENTE muda
-      if (isDesktop) {
-        openSidebar(true);
-      } else {
-        closeSidebar();
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleScreenChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleScreenChange);
-    };
-  }, [closeSidebar, openSidebar]);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (backdropRef.current && e.target === backdropRef.current) {
-        closeSidebar();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [closeSidebar]);
+    return open;
+  }, [open, isMobile]);
 
   return (
     <>
       <div
-        ref={backdropRef}
         className={cn(
           "fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 sm:hidden ",
-          open
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          {
+            "opacity-100 pointer-events-auto": shouldShowSidebar,
+            "opacity-0 pointer-events-none": !shouldShowSidebar,
+          }
         )}
       ></div>
       <aside
         className={cn(
           "p-4  md:pt-22 border fixed md:flex md:relative inset-0 rounded-md w-full max-w-xs bg-white border-y-0 z-50 md:z-0 transition-transform duration-300",
           className,
-          open ? "translate-x-0" : "-translate-x-full"
+          {
+            "translate-x-0": shouldShowSidebar,
+            "-translate-x-full": !shouldShowSidebar,
+          }
         )}
+        ref={backdropRef}
       >
         <SidebarContent className="h-full">
           <SidebarGroupLabel className="font-semibold text-lg flex justify-between">
-            Filtro <SlidersHorizontal />
+            Filtro
+            <span className="hidden md:block">
+              <SlidersHorizontal />
+            </span>
+            <span className="md:hidden">
+              <Button variant="ghost" onClick={closeSidebar}>
+                <X className="size-1" />
+              </Button>
+            </span>
           </SidebarGroupLabel>
           <Separator />
           <div>
@@ -141,12 +124,9 @@ export default function CategoryFilter({
                   />
                   <label
                     htmlFor={`category-${category.id}`}
-                    className={`
-           block px-4 py-2 rounded-lg cursor-pointer text-muted-foreground
-          transition-all duration-200 ease-in-out capitalize
-          peer-checked:bg-accent peer-checked:text-muted-foreground  peer-checked:hover:bg-muted
-          hover:bg-gray-100 text-base
-        `}
+                    className={cn(
+                      "block px-4 py-2 rounded-lg cursor-pointer text-muted-foreground transition-all duration-200 ease-in-out capitalize peer-checked:bg-accent peer-checked:text-muted-foreground peer-checked:hover:bg-muted hover:bg-gray-100 text-base"
+                    )}
                   >
                     {category.name}
                   </label>
@@ -158,7 +138,7 @@ export default function CategoryFilter({
             <Collapsible
               defaultOpen
               open={collapsiIsOpen}
-              onOpenChange={setIsOpen}
+              onOpenChange={setCollapsiIsOpen}
             >
               <CollapsibleTrigger asChild>
                 <SidebarGroupLabel className="font-semibold text-lg flex justify-between mb-2">

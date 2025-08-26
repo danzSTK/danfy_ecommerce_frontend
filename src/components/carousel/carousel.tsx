@@ -28,7 +28,7 @@ export default function CarouselWrapper({
   autoplay = true,
   variant = "default",
   teste = false,
-}: CarouselWrapperProps) {
+}: Readonly<CarouselWrapperProps>) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -96,7 +96,7 @@ export default function CarouselWrapper({
         <Carousel
           className=""
           opts={{
-            slidesToScroll: 1,
+            slidesToScroll: 2,
             /*  loop: true, */
             align: isMobile ? "center" : "start",
           }}
@@ -105,7 +105,7 @@ export default function CarouselWrapper({
             {sliders.map((slide, index) => (
               <CarouselItem
                 key={index}
-                className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-1 md:pl-4"
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4  md:pl-4"
               >
                 <div className="p-1">{slide}</div>
               </CarouselItem>

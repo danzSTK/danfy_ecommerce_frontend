@@ -17,7 +17,7 @@ export default function ProductGrid({ products }: productGridProps) {
             id={product.id}
             imageUrl={product.defaultImageUrl}
             name={product.name}
-            router=""
+            router={`/products/${product.id}`}
           />
         );
       })}

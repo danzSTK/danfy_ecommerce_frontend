@@ -21,6 +21,9 @@ const SectionCategoryMen = () => {
     name: "masculino",
   });
 
+  if (error) {
+    console.log("Erro ao carregar categorias:", error);
+  }
 
   return (
     <section className="my-20 container">

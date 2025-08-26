@@ -5,7 +5,7 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground py-14 text-background">
+    <footer className="bg-foreground py-14 mt-20 text-background">
       <div className="container">
         <div className="grid grid-cols-1 px-0 md:px-20 gap-y-10 md:gap-y-20 md:grid-cols-2 lg:grid-cols-4">
           <section aria-labelledby="company" className="">

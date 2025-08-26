@@ -1,6 +1,6 @@
 "use client";
 import { NavContentType } from "@/components/nav-menu/navMenu";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 type SidebarType = "cart" | "favorites" | "menu" | "profile" | "fixed" | null;
 
@@ -32,7 +32,6 @@ export const SidebarProvider = ({
   const openSidebar = (type: SidebarType) => {
     setType(type);
     setOpen(true);
-
     document.body.style.overflow = "hidden";
   };
 
@@ -43,7 +42,7 @@ export const SidebarProvider = ({
   const closeSidebar = () => {
     setType(null);
     setOpen(false);
-    document.body.style.overflow = "";
+    document.body.style.overflow = "auto";
   };
 
   useEffect(() => {
@@ -54,12 +53,19 @@ export const SidebarProvider = ({
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
+  const value = useMemo(
+    () => ({
+      type,
+      open,
+      openSidebar,
+      closeSidebar,
+      setTypeValue,
+    }),
+    [type, open]
+  );
+
   return (
-    <SidebarContext.Provider
-      value={{ type, open, openSidebar, closeSidebar, setTypeValue }}
-    >
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
   );
 };
 

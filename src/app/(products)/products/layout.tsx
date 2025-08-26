@@ -2,6 +2,7 @@
 //TODO: quero todos os layout sendo renderizado no server side todo e qualquer layout que esteja com alguma dependencia do client side deve ser revisto e corrigido
 "use client";
 
+import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import { NavContentType } from "@/components/nav-menu/navMenu";
 import { Sidebar } from "@/components/sidebar/siderbar";
@@ -45,14 +46,13 @@ export default function ProductsLayout({ children }: { children: ReactNode }) {
     },
   ];
   return (
-    <>
-      <SidebarProvider>
-        <FilterSidebarProvider>
-          <Header navigationMenuItems={navigationMenuItems} />
-          <Sidebar navigationMenuItems={navigationMenuItems} />
-          {children}
-        </FilterSidebarProvider>
-      </SidebarProvider>
-    </>
+    <SidebarProvider>
+      <FilterSidebarProvider>
+        <Header navigationMenuItems={navigationMenuItems} />
+        <Sidebar navigationMenuItems={navigationMenuItems} />
+        {children}
+        <Footer />
+      </FilterSidebarProvider>
+    </SidebarProvider>
   );
 }
