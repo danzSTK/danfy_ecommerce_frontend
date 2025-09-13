@@ -26,17 +26,37 @@ import {
 } from "lucide-react";
 import SectionTitle from "@/components/titles/SectionTitle";
 import React from "react";
+import { useCart } from "@/hooks/useCart";
 
 const SIZES = ["XS", "S", "M", "L", "XL"] as const;
 
 export default function ProductDetailsSection() {
   const { productId } = useParams<{ productId: string }>();
   const { data: product, error, isLoading } = useGetOneProductQuery(productId);
-
+  const { addProduct } = useCart();
   const [selectedVariantId, setSelectedVariantId] = React.useState<
     string | null
   >(null);
 
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    const variantToAdd =
+      product.variants.find((v) => v.id === selectedVariantId) ||
+      product.variants[0]; // Adiciona a primeira variante se nenhuma estiver selecionada
+
+    const data = {
+      productId: product.id,
+      variantId: variantToAdd.id,
+      quantity: 1,
+    };
+
+    if (variantToAdd) {
+      addProduct(data);
+    }
+  };
+
+  // TODO
   const currentVariant = selectedVariantId
     ? product?.variants?.find((v) => v.id === selectedVariantId)
     : null; // Mudança: null permite voltar ao padrão
@@ -53,6 +73,7 @@ export default function ProductDetailsSection() {
     return <ProductDetailsSkeleton />;
   }
 
+  // TODO: Melhorar tratamento de erro
   if (error || !product) {
     return (
       <div className="container flex flex-col items-center justify-center min-h-[400px]">
@@ -155,7 +176,7 @@ export default function ProductDetailsSection() {
                 )}
               </Carousel>
             </div>
-            <div className=" w-full lg:w-96 rounded-lg overflow-hidden">
+            <div className="flex w-full lg:w-96 rounded-lg overflow-hidden min-h-full md:min-h-auto">
               <ImageWithFallback
                 src={mainImage}
                 alt={
@@ -348,6 +369,8 @@ export default function ProductDetailsSection() {
             )}
 
             {/* Stock info for selected variant */}
+
+            {/*TODO: Mostrar informação de estoque da variante selecionada */}
             {currentVariant && (
               <div className="text-sm">
                 {currentVariant.stock > 0 ? (
@@ -390,6 +413,7 @@ export default function ProductDetailsSection() {
                   !currentVariant ||
                   currentVariant.stock === 0
                 }
+                onClick={handleAddToCart}
               >
                 {product.isActive &&
                 currentVariant &&
