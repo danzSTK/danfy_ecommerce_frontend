@@ -4,69 +4,52 @@ import { NavContentType, NavMenu } from "../nav-menu/navMenu";
 import { CardTitle } from "../ui/card";
 import { useSidebarContext } from "@/hooks/useSidebarContext";
 import { Button } from "../ui/button";
+import { CartSidebar } from "../sidebar/cartSidebar";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { openCartSidebar } from "@/lib/redux/slices/cartSlice";
 
 type Props = {
   navigationMenuItems: NavContentType[];
 };
 
-export default function Header({ navigationMenuItems }: Props) {
-  const { openSidebar, open } = useSidebarContext();
+export default function Header({ navigationMenuItems }: Readonly<Props>) {
+  const location = usePathname();
+  const { openSidebar } = useSidebarContext();
+  const dispatch = useAppDispatch();
 
   const handleOpenSidebar = () => {
     openSidebar("menu");
   };
 
-  //TODO: Adicionar tratativas de erros e loading da requisiçao. Fazer skeletons nos components quando estiver Loading e quebrar o layout caso aconteça um erro(o que nao pode acontecer)
-
-  //TODO: Pensar em uma forma de criar uma router ou cache para receber rotas e label direto do backend
-
-  /*  const navigationMenuItems: NavContentType[] = [
-    { label: "Home", href: "/", icon: <House /> },
-    { label: "Destaques", href: "/products", icon: <Package /> },
-    {
-      label: "Femininos",
-      href: `/products/category/${
-        dataCategoryMens ? dataCategoryMens[0].id : ""
-      }`,
-      icon: <Venus />,
-    },
-    {
-      label: "Masculinos",
-      href: `/products/category/${
-        dataCategoryWomens ? dataCategoryWomens[0].id : ""
-      }`,
-      icon: <Mars />,
-    },
-  ]; */
-
-  // TODO: Corrigir e concentrar em local para armazenar sobre informações de caminhos relativos
-
-  // TODO: Corrigir menu hamburger, adicionar card do carrinho e melhorar sidebar menu do mobile
-
-  //TODO: Achar uma forma de fazer um select ou saber qual aba/guia o usuaário está para controlar o acesso de forma mais precisa  e saber onde realmente encontramos taís dados para visual ou para controle do mesmo
-  const navigationUserItemMobile: NavContentType[] = [
-    /* { label: "search for product", icon: <Search />, href: "/search" }, */
-    { label: "your cart", icon: <ShoppingCart />, href: "/cart" },
-    { label: "your favorites products", icon: <Heart />, href: "/favorites" },
-  ];
-
-  const navigationUserItem: NavContentType[] = [
-    { label: "your profile", icon: <User />, href: "/profile" },
-    { label: "your cart", icon: <ShoppingCart />, href: "/cart" },
-    { label: "your favorites products", icon: <Heart />, href: "/favorites" },
-  ];
   return (
-    <header className="bg-popover py-5 z-50 fixed top-0 left-0 right-0">
+    <header className="flex items-center justify-between px-4 py-3 shadow-md md:px-6 bg-popover fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
-        <CardTitle className="text-base md:text-2xl font-bold font-mono uppercase">
+        <CardTitle className="md:text-2xl font-bold font-mono uppercase">
           DanfyShop
         </CardTitle>
-        <NavMenu
-          className="hidden md:block"
-          size="default"
-          variant="ghost"
-          items={navigationMenuItems}
-        />
+        <NavMenu className="hidden md:block">
+          {" "}
+          {navigationMenuItems.map((item) => {
+            const isActive = location === item.href;
+            return (
+              <li key={item.label}>
+                <Button
+                  className={cn(
+                    "cursor-pointer hover:bg-muted",
+                    isActive ? "bg-accent hover:bg-accent" : ""
+                  )}
+                  variant={"ghost"}
+                  asChild
+                >
+                  <Link href={item.href}>{item.label}</Link>
+                </Button>
+              </li>
+            );
+          })}
+        </NavMenu>
         {/* <label
           htmlFor="input-search"
           className="hidden md:flex items-center gap-2 bg-secondary shadow-2xs w-60 px-5 py-2 rounded-lg hover:border-primary border-transparent border"
@@ -79,20 +62,27 @@ export default function Header({ navigationMenuItems }: Props) {
             placeholder="Search..."
           />
         </label> */}
-        <NavMenu
-          className="hidden md:block ml-2"
-          size="icon"
-          variant="secondary"
-          items={navigationUserItem}
-        />
 
-        <div className="flex">
-          <NavMenu
-            className="flex md:hidden"
-            size="icon"
-            variant="secondary"
-            items={navigationUserItemMobile}
-          />
+        <div className="flex space-x-1">
+          <Button variant="ghost" className="hidden md:inline-flex">
+            <User className="size-6" />
+          </Button>
+
+          <Button variant="ghost" className="">
+            <Heart className="size-6" />
+          </Button>
+
+          <Button
+            variant={"ghost"}
+            className="relative"
+            onClick={() => dispatch(openCartSidebar())}
+          >
+            <ShoppingCart className="size-6" />
+            <span className="absolute top-0 right-0 text-xs bg-primary text-secondary rounded-full w-4 h-4 flex items-center justify-center">
+              3
+            </span>
+          </Button>
+
           <Button
             className="flex justify-end md:hidden"
             variant="ghost"
@@ -104,6 +94,8 @@ export default function Header({ navigationMenuItems }: Props) {
           </Button>
         </div>
       </div>
+
+      <CartSidebar />
     </header>
   );
 }
