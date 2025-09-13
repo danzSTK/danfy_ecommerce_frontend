@@ -41,10 +41,7 @@ export default function CarouselWrapper({
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
-      console.log(current, count);
     });
-
-    console.log(current, count);
   }, [api, count, current]);
   return (
     <>
@@ -105,7 +102,7 @@ export default function CarouselWrapper({
             {sliders.map((slide, index) => (
               <CarouselItem
                 key={index}
-                className="basis-1/2 md:basis-1/3 lg:basis-1/4  md:pl-4"
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4  pl-0 md:pl-4"
               >
                 <div className="p-1">{slide}</div>
               </CarouselItem>

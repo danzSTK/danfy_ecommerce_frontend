@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CardTitle from "../titles/cardTitle";
+import CardTitle from "../titles/Title";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Feedback } from "@/view/home/sectionFeedback";
 

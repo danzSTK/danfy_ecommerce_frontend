@@ -1,7 +1,7 @@
 import { inter, MonoSpace, poppins } from "@/lib/fonts";
 import { ReactNode } from "react";
 
-export default function BaseLayout({ children }: { children: ReactNode }) {
+export default function BaseLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html
       lang="pt-BR"

@@ -4,6 +4,9 @@ import { defaultMetadata } from "@/lib/metadata";
 import BaseLayout from "@/components/baseLayout/BaseLayout";
 import { ReduxProvider } from "@/lib/redux/provider";
 
+import { Toaster } from "sonner";
+import { USER_ROLES } from "@/interfaces/Constants";
+
 export const metadata = defaultMetadata;
 
 export default function RootLayout({
@@ -12,9 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   console.log("layout padrao carregado");
+  console.log(USER_ROLES.admin);
   return (
     <BaseLayout>
-      <ReduxProvider>{children}</ReduxProvider>
+      <ReduxProvider>
+        {children}
+        <Toaster />
+      </ReduxProvider>
     </BaseLayout>
   );
 }

@@ -8,22 +8,20 @@ import SectionCategoryMen from "@/view/home/sectionCategoryForMen";
 import SectionCategoryWomen from "@/view/home/sectionCategoryForWomen";
 import { CarouselInfinity } from "@/components/carousel/CarouselInfint";
 
-import nikeLogo from "../../../public/images/logos-parceiras/Logo_NIKE.svg";
-import umbroLogo from "../../../public/images/logos-parceiras/Umbro_logo.svg";
-import LouisLogo from "../../../public/images/logos-parceiras/Louis_Vuitton_logo_and_wordmark.svg";
-import dolceGabanna from "../../../public/images/logos-parceiras/Dolce_&_Gabbana.svg";
-import adidasLogo from "../../../public/images/logos-parceiras/Adidas_Logo.svg";
-import filaLogo from "../../../public/images/logos-parceiras/fila-logo.png";
-import pulmaLogo from "../../../public/images/logos-parceiras/puma-logo.png";
+import nikeLogo from "../../../../public/images/logos-parceiras/Logo_NIKE.svg";
+import umbroLogo from "../../../../public/images/logos-parceiras/Umbro_logo.svg";
+import LouisLogo from "../../../../public/images/logos-parceiras/Louis_Vuitton_logo_and_wordmark.svg";
+import dolceGabanna from "../../../../public/images/logos-parceiras/Dolce_&_Gabbana.svg";
+import adidasLogo from "../../../../public/images/logos-parceiras/Adidas_Logo.svg";
+import filaLogo from "../../../../public/images/logos-parceiras/fila-logo.png";
+
+import pulmaLogo from "../../../../public/images/logos-parceiras/puma-logo.png";
 import Image from "next/image";
 import SectionDestaques from "@/view/home/sectionDestaques";
-import SectionFeedback, { Feedback } from "@/view/home/sectionFeedback";
 
 //TODO: achar outra forma de compartilhar esse component de carouselInfinito
 //TODO: achar outra forma de compartilhar essas imagens em destaque se nao ela vai ficar hight codado entao
-import userPhotoTeste from "../../../public/images/Rectangle 25.png";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/lib/redux/store";
+
 import { useGetAllCategoriesQuery } from "@/services/routes/categories";
 import Header from "@/components/header/header";
 import { NavContentType } from "@/components/nav-menu/navMenu";
@@ -72,9 +70,6 @@ export default function Home() {
     filaLogo.src,
     pulmaLogo.src,
   ];
-  const count = useSelector((state: RootState) => state.example.count);
-  const dispatch = useDispatch<AppDispatch>();
-  const { data, isLoading } = useGetAllCategoriesQuery({});
 
   return (
     <>

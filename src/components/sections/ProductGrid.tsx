@@ -1,4 +1,4 @@
-import { ProductResponseInterface } from "@/interfaces/product";
+import { ProductResponseInterface } from "@/interfaces/Product";
 import { CardProducts } from "../cards/cardForProducts";
 
 type productGridProps = {

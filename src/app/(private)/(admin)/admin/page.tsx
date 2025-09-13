@@ -4,7 +4,6 @@
 }; */
 "use client";
 
-
 import {
   Card,
   CardContent,
@@ -12,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useAppSelector } from "@/lib/redux/hooks";
 import { Package, ShoppingCart, Users, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -27,6 +27,9 @@ interface DashboardStats {
 
 export default function AdminDashboard() {
   const [stats] = useState<DashboardStats | null>(null);
+  const { user } = useAppSelector((state) => state.auth);
+
+  console.log("usuario no dashboard", user);
 
   const statCards = [
     {

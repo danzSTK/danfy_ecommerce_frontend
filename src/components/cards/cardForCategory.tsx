@@ -1,6 +1,6 @@
 import Link from "next/link";
-import CardSubtitle from "../titles/cardSubtitle";
-import CardTitle from "../titles/cardTitle";
+import CardSubtitle from "../titles/Subtitle";
+import TitleComponent from "../titles/Title";
 import CardBase from "./cardBase";
 import { ArrowRight } from "lucide-react";
 
@@ -28,7 +28,9 @@ const CardCategory = ({
         className="grid grid-cols-[1fr_auto] gap-2 items-start"
       >
         <div className="min-w-0">
-          <CardTitle>{title}</CardTitle>
+          <TitleComponent as="h3">
+            {title}
+          </TitleComponent>
           <CardSubtitle>{brand}</CardSubtitle>
         </div>
         <div className=" ml-4 flex items-center h-full">

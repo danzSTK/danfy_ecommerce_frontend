@@ -1,6 +1,6 @@
 import Link from "next/link";
-import CardSubtitle from "../titles/cardSubtitle";
-import CardTitle from "../titles/cardTitle";
+import CardSubtitle from "../titles/Subtitle";
+import CardTitle from "../titles/Title";
 import CardBase from "./cardBase";
 
 export type CardProductsType = {
@@ -31,7 +31,7 @@ export const CardProducts = ({
           <CardTitle>{name}</CardTitle>
           <CardSubtitle>{description}</CardSubtitle>
         </div>
-        <div className=" ml-4 flex items-center h-full">
+        <div className=" mt-2 md:ml-4 flex justify-end items-center h-full">
           <span className="flex bg-input/40 p-2 rounded-[8px]">{`R$ ${Number(
             basePrice
           ).toFixed(2)}`}</span>
