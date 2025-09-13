@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { NavContentType } from "../nav-menu/navMenu";
+import { useAuth } from "@/hooks/useAuth";
 
 type Props = {
   navigationMenuItems?: NavContentType[];
@@ -18,6 +19,7 @@ type Props = {
 //TODO: Corrigir e achar outra forma de compartilhar esse elemento sem fazer o ternario por tipo, facilitando o uso e sua construção mais semantica \ fazer uma forma de centralizar os caminhos e rotas para nao mudar devido ao layout, lembrando que no mobile as rotas estao hight code / magic string
 export function Sidebar({ navigationMenuItems }: Readonly<Props>) {
   const { open, closeSidebar, type } = useSidebarContext();
+  const { isAuthenticated } = useAuth();
   const backdropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,12 +63,12 @@ export function Sidebar({ navigationMenuItems }: Readonly<Props>) {
         {type === "menu" && (
           <main className="p-4 block">
             <section>
-              <SidebarGroupLabel className="gap-2 font-bold text-base">
+              <SidebarGroupLabel className="px-5 gap-2 font-bold text-base">
                 <LayoutDashboard />
                 Dashboard
               </SidebarGroupLabel>
 
-              <SidebarGroup className="max-w-11/12 mx-auto my-0 flex gap-2">
+              <SidebarGroup className="px-2 max-w-11/12 mx-auto my-0 flex gap-2">
                 {navigationMenuItems?.map((item) => (
                   <Button
                     asChild
@@ -87,13 +89,12 @@ export function Sidebar({ navigationMenuItems }: Readonly<Props>) {
               </SidebarGroup>
             </section>
             <section className="my-4">
-              <SidebarGroupLabel className="">
+              <SidebarGroupLabel className=" ">
                 {/* TODO: usar algo mais semantico, criar um component para esse button drop down fazendo todo o esquema recebendo os argumentos tanto da function toggleDropdown quanto outras propriedades mantendo apenas o button como fixo e restante será o children do component */}
                 <Button
                   onClick={toggleDropdown}
                   className="w-full flex items-center justify-between font-bold  rounded transition"
                   variant={isOpen ? "default" : "ghost"}
-                  style={{ paddingInline: 0 }}
                 >
                   <span className="flex items-end gap-2 font-bold text-base">
                     <User className="size-6" />
@@ -116,26 +117,47 @@ export function Sidebar({ navigationMenuItems }: Readonly<Props>) {
                       isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <Button
-                      variant="link"
-                      className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
-                      asChild
-                    >
-                      <Link href="/profile">ver perfil</Link>
-                    </Button>
-                    <Button
-                      variant="link"
-                      className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
-                      asChild
-                    >
-                      <Link href="/profile/options">Configurações</Link>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="block w-full text-left px-2 py-1 text-sm rounded text-destructive"
-                    >
-                      Sair
-                    </Button>
+                    {isAuthenticated ? (
+                      <>
+                        <Button
+                          variant="link"
+                          className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
+                          asChild
+                        >
+                          <Link href="/profile">ver perfil</Link>
+                        </Button>
+                        <Button
+                          variant="link"
+                          className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
+                          asChild
+                        >
+                          <Link href="/profile/options">Configurações</Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="block w-full text-left px-2 py-1 text-sm rounded text-destructive"
+                        >
+                          Sair
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                      <Button
+                          variant="link"
+                          className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
+                          asChild
+                        >
+                          <Link href="/admin/auth">Login</Link>
+                        </Button>
+                        <Button
+                          variant="link"
+                          className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
+                          asChild
+                        >
+                          <Link href="/auth/register">Registrar-se</Link>
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </SidebarGroup>
