@@ -15,12 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   console.log("layout padrao carregado");
-  console.log(USER_ROLES.admin);
+  console.log(USER_ROLES.ADMIN);
   return (
     <BaseLayout>
       <ReduxProvider>
         {children}
-        <Toaster />
+        <Toaster richColors position="top-right" />
       </ReduxProvider>
     </BaseLayout>
   );
