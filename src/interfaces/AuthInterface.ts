@@ -1,7 +1,7 @@
-import { type UserRoles, type UserStatus } from "./Constants";
+import { Countrys, type UserRoles, type UserStatus } from "./Constants";
 
 export interface ILoginResponse {
-  acessToken: string;
+  accessToken: string;
   refreshToken: string;
 }
 
@@ -12,11 +12,47 @@ export interface ILoginRequest {
 
 export interface IUser {
   id: number;
-  email: string;
   name: string;
+  email: string;
+  isEmailVerified: boolean;
+  emailVerificationToken: string | null;
+  emailVerificationTokenExpiresAt: Date | null;
   passwordHash: string;
+  phone: string | null;
+  isPhoneVerified: boolean;
+  acceptsEmailMarketing: boolean;
+  acceptsSmsMarketing: boolean;
+  acceptsWhatsappMarketing: boolean;
+  acceptsTerms: boolean;
+  acceptsPrivacy: boolean;
+  acceptedTermsAt: Date | null;
+  acceptedPrivacyAt: Date | null;
+  lastLoginAt: Date | null;
+  locale: string;
+  currency: string;
+  country: Countrys | null;
+  state: string | null;
   role: UserRoles;
   status: UserStatus;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
 }
+
+export type ICretedUserRequest = Omit<
+  IUser,
+  | "id"
+  | "role"
+  | "status"
+  | "createdAt"
+  | "updatedAt"
+  | "deletedAt"
+  | "isEmailVerified"
+  | "emailVerificationToken"
+  | "emailVerificationTokenExpiresAt"
+  | "passwordHash"
+  | "isPhoneVerified"
+  | "acceptedTermsAt"
+  | "acceptedPrivacyAt"
+  | "lastLoginAt"
+> & { password: string };
