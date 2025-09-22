@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { closeCartSidebar } from "@/lib/redux/slices/cartSlice";
 import { useGetProductsQuery } from "@/services/routes/products";
 import CardProductCart from "../cards/cardProductCart";
+import { useAuth } from "@/hooks/useAuth";
 
 export function CartSidebar() {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ export function CartSidebar() {
   const { isSidebarOpen, products: cartItems } = useAppSelector(
     (state) => state.cart
   );
+  const { isAuthenticated } = useAuth();
 
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
@@ -67,7 +69,11 @@ export function CartSidebar() {
                   Taxas e frete serão calculados no checkout.
                 </p>
                 <Button asChild className="w-full" size="lg">
-                  <Link href="/checkout">Finalizar Compra</Link>
+                  {isAuthenticated ? (
+                    <Link href="/checkout">Finalizar Compra</Link>
+                  ) : (
+                    <Link href="/login">Fazer Login</Link>
+                  )}
                 </Button>
                 <Button asChild variant="outline" className="w-full">
                   <Link href="/cart">Ver Carrinho Detalhado</Link>

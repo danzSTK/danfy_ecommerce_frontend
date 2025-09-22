@@ -2,30 +2,46 @@
 import { AlignRight, Heart, ShoppingCart, User } from "lucide-react";
 import { NavContentType, NavMenu } from "../nav-menu/navMenu";
 import { CardTitle } from "../ui/card";
-import { useSidebarContext } from "@/hooks/useSidebarContext";
 import { Button } from "../ui/button";
 import { CartSidebar } from "../sidebar/cartSidebar";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { useAppDispatch } from "@/lib/redux/hooks";
 import { openCartSidebar } from "@/lib/redux/slices/cartSlice";
+import { useCart } from "@/hooks/useCart";
+import { Sidebar } from "../sidebar/siderbar";
+import React from "react";
 
 type Props = {
   navigationMenuItems: NavContentType[];
+  className?: string;
 };
 
-export default function Header({ navigationMenuItems }: Readonly<Props>) {
+export default function Header({
+  navigationMenuItems,
+  className,
+}: Readonly<Props>) {
+  const [open, setOpen] = React.useState(false);
   const location = usePathname();
-  const { openSidebar } = useSidebarContext();
+  const { products } = useCart();
   const dispatch = useAppDispatch();
 
   const handleOpenSidebar = () => {
-    openSidebar("menu");
+    setOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setOpen(false);
   };
 
   return (
-    <header className="flex items-center justify-between px-4 py-3 shadow-md md:px-6 bg-popover fixed top-0 left-0 right-0 z-50">
+    <header
+      className={cn(
+        "flex items-center justify-between px-4 py-3 shadow-md md:px-6 bg-popover fixed top-0 left-0 right-0 z-50",
+        className
+      )}
+    >
       <div className="container mx-auto flex items-center justify-between">
         <CardTitle className="md:text-2xl font-bold font-mono uppercase">
           DanfyShop
@@ -78,8 +94,13 @@ export default function Header({ navigationMenuItems }: Readonly<Props>) {
             onClick={() => dispatch(openCartSidebar())}
           >
             <ShoppingCart className="size-6" />
-            <span className="absolute top-0 right-0 text-xs bg-primary text-secondary rounded-full w-4 h-4 flex items-center justify-center">
-              3
+            <span
+              className={cn(
+                "absolute top-0 right-0 text-xs bg-primary text-secondary rounded-full w-4 h-4 flex items-center justify-center",
+                products.length === 0 ? "hidden" : ""
+              )}
+            >
+              {products.length}
             </span>
           </Button>
 
@@ -95,6 +116,7 @@ export default function Header({ navigationMenuItems }: Readonly<Props>) {
         </div>
       </div>
 
+      <Sidebar open={open} closeSidebar={handleCloseSidebar} />
       <CartSidebar />
     </header>
   );

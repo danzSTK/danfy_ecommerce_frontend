@@ -6,7 +6,7 @@ import React from "react";
 
 export function AuthGuard({
   children,
-  redirectTo = "/admin/auth",
+  redirectTo = "/auth/login",
 }: Readonly<{ children: React.ReactNode; redirectTo?: string }>) {
   const { isInitialized, isLoading, user } = useAuth();
   const router = useRouter();
