@@ -29,13 +29,7 @@ export const authApi = api.injectEndpoints({
         body: refreshData,
       }),
     }),
-
   }),
 });
 
-export const {
-  useLoginMutation,
-  useGetUserQuery,
-  useRefreshTokenMutation,
-  useLazyGetUserQuery,
-} = authApi;
+export const { useLoginMutation, useRefreshTokenMutation } = authApi;

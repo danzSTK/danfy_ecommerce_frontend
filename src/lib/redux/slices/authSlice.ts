@@ -36,13 +36,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action: PayloadAction<ILoginResponse>) => {
-      const { acessToken, refreshToken } = action.payload;
+      const { accessToken, refreshToken } = action.payload;
       state.isAuthenticated = true;
-      state.token = acessToken;
+      state.token = accessToken;
       state.refreshToken = refreshToken;
 
       if (isClient) {
-        localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, acessToken);
+        localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, accessToken);
         localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
       }
     },
@@ -73,13 +73,13 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
-        const { acessToken, refreshToken } = action.payload;
-        state.token = acessToken;
+        const { accessToken, refreshToken } = action.payload;
+        state.token = accessToken;
         state.refreshToken = refreshToken;
         state.isAuthenticated = true;
 
         if (isClient) {
-          localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, acessToken);
+          localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, accessToken);
           localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
         }
       })

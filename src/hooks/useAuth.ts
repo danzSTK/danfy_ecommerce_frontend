@@ -10,7 +10,8 @@ import {
 } from "@/lib/redux/slices/authSlice";
 
 import { RootState } from "@/lib/redux/store";
-import { useLazyGetUserQuery, useLoginMutation } from "@/services/routes/Auth";
+import { useLoginMutation } from "@/services/routes/Auth";
+import { useLazyGetUserByIdQuery } from "@/services/routes/User";
 import { decodeJWT } from "@/utils/decodeJWT";
 import { useCallback } from "react";
 
@@ -22,7 +23,7 @@ export const useAuth = () => {
     useAppSelector((state: RootState) => state.auth);
 
   const [loginMutation] = useLoginMutation();
-  const [triggerGetUser] = useLazyGetUserQuery();
+  const [triggerGetUser] = useLazyGetUserByIdQuery();
 
   const login = async (credentials: ILoginRequest) => {
     try {
@@ -30,7 +31,7 @@ export const useAuth = () => {
 
       const loginResult = await loginMutation(credentials).unwrap();
 
-      const decodedToken = decodeJWT(loginResult.acessToken);
+      const decodedToken = decodeJWT(loginResult.accessToken);
 
       if (decodedToken?.sub) {
         const userResult = await triggerGetUser(decodedToken.sub).unwrap();
@@ -43,15 +44,16 @@ export const useAuth = () => {
 
       return null;
     } catch (error) {
-      toast.error("Erro ao realizar login. Verifique suas credenciais.");
-      dispatch(setLoading(false));
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
       throw error;
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
   const logoutUser = () => {
     dispatch(logout());
-    toast.success("Logout realizado com sucesso!");
   };
 
   const checkAuth = useCallback(async () => {
@@ -71,7 +73,7 @@ export const useAuth = () => {
           dispatch(setUser(userResult));
           dispatch(
             setCredentials({
-              acessToken: storedToken,
+              accessToken: storedToken,
               refreshToken:
                 localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN) || "",
             })
