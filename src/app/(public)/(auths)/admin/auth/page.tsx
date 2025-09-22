@@ -61,7 +61,7 @@ export default function AdminPage() {
 
       router.push("/admin");
     } catch (error: any) {
-      if (error?.status === 401) {
+      /* if (error?.status === 401) {
         setError("password", { message: "Credenciais inválidas" });
         setError("email", { message: "Credenciais inválidas" });
         console.log("Erro 401: Credenciais inválidas");
@@ -72,7 +72,7 @@ export default function AdminPage() {
       } else {
         toast.error("Erro ao fazer login. Tente novamente mais tarde.", error);
         return;
-      }
+      } */
     } finally {
       setIsLoading(false);
     }
