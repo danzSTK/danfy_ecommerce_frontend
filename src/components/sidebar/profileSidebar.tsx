@@ -30,9 +30,9 @@ const ProfileNavLink = ({
     <Link
       href={href}
       className={cn(
-        "flex items-center px-4 py-2 text-sm rounded-md transition-colors",
+        "flex items-center px-4 py-2 text-sm rounded-md transition-colors md:rounded-r-none",
         active
-          ? "bg-primary text-primary-foreground font-medium"
+          ? "bg-primary text-primary-foreground font-medium "
           : "hover:bg-muted text-foreground"
       )}
       onClick={onClick}
@@ -53,13 +53,13 @@ export function ProfileSidebar() {
   const navLinks = [
     {
       label: "Meus Dados",
-      href: `/profile/${userId}`,
+      href: `/profile/personalInfo`,
       icon: <User className="mr-2 size-4" />,
       exact: true,
     },
     {
       label: "Favoritos",
-      href: `/profile/${userId}/favorites`,
+      href: `/profile/favorites`,
       icon: <Heart className="mr-2 size-4" />,
       exact: false,
     },
@@ -126,8 +126,8 @@ export function ProfileSidebar() {
   return (
     <>
       <aside
-        className="hidden md:flex md:flex-col border-r border-border bg-background px-4 py-6 w-64 h-full overflow-y-hidden"
-        style={{ height: "calc(100vh -60px)" }}
+        className="hidden md:flex md:flex-col border-r border-border bg-background pl-4 ml-4 py-6 w-64 h-full overflow-y-hidden"
+        style={{ height: "calc(100dvh - 61px)" }}
       >
         {navContent}
       </aside>

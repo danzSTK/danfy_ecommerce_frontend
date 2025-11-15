@@ -29,7 +29,6 @@ export function Step2PersonalInfo({ form }: Readonly<IPropsSteps>) {
         mask="(00) 00000-0000"
         unmask={true}
         control={control}
-        disabled={false}
       />
     </div>
   );

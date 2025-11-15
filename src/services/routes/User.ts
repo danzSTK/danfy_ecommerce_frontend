@@ -1,4 +1,4 @@
-import { ICretedUserRequest, IUser } from "@/interfaces/AuthInterface";
+import { ICretedUserRequest, IUser } from "@/interfaces/Auth.interface";
 import { api } from "../api";
 
 export const UserAPI = api.injectEndpoints({

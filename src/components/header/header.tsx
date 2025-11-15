@@ -38,7 +38,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        "flex items-center justify-between px-4 py-3 shadow-md md:px-6 bg-popover fixed top-0 left-0 right-0 z-50",
+        "flex items-center justify-between px-4 py-3 border-b md:px-6 bg-background fixed top-0 left-0 right-0 z-50",
         className
       )}
     >

@@ -130,7 +130,7 @@ export function Sidebar({
                       <Button
                         variant="link"
                         className="block capitalize w-full text-left px-2 py-1 text-sm rounded"
-                        onClick={() => handleRouteChange(`/profile/${user.id}`)}
+                        onClick={() => handleRouteChange(`/profile/`)}
                       >
                         <span className="">ver perfil</span>
                       </Button>

@@ -26,6 +26,27 @@ interface InputLabelAnimatedProps<TFieldValues extends FieldValues>
   unmask?: boolean;
 }
 
+/**
+ * Input component with animated label and masking support.
+ *
+ * Sempre que a prop `mask` for fornecida, o componente usará `IMaskInput` para aplicar a máscara ao campo de entrada.
+ * Caso contrário, ele funcionará como um input padrão.
+ *
+ * Se quiser usar máscara, deve fornecer a prop `control` do react-hook-form. Além disso, a prop `unmask` indica se o valor deve ser desmascarado antes de ser enviado (padrão é true).
+ * 
+ * Se não quiser usar máscara, pode fornecer a prop `register` do react-hook-form.
+ *
+ * @returns JSX.Element
+ * @prop {string} name - The name of the input field, used for form registration.
+ * @prop {string} label - The label for the input field.
+ * @prop {UseFormRegister<TFieldValues>} [register] - The register function from react-hook-form.
+ * @prop {Control<TFieldValues>} [control] - The control object from react-hook-form.
+ * @prop {FieldError} [error] - The error object for the input field.
+ * @prop {string} [mask] - A máscara a ser aplicada ao campo de entrada em formato de string (ex: "(99) 99999-9999").
+ * @prop {boolean} [unmask] default = true - Um boleano que indica se o valor deve ser desmascarado antes de ser enviado.
+ *
+ */
+
 export const InputLabelAnimated = <TFieldValues extends FieldValues>({
   name,
   label,
@@ -54,10 +75,8 @@ export const InputLabelAnimated = <TFieldValues extends FieldValues>({
   );
 
   const labelClass = cn(
-    "absolute left-3 top-2 z-10 origin-[0] -translate-y-5 scale-75 transform bg-background px-1 text-sm text-muted-foreground duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-primary",
-    error
-      ? "text-destructive peer-focus:text-destructive"
-      : "text-muted-foreground peer-focus:text-primary"
+    "absolute left-3 top-2 z-10 origin-[0] -translate-y-5 scale-75 transform bg-background px-1 text-sm md:text-base text-muted-foreground duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-primary",
+    error ? "text-destructive peer-focus:text-destructive" : ""
   );
 
   return (
@@ -72,11 +91,12 @@ export const InputLabelAnimated = <TFieldValues extends FieldValues>({
               <div className="relative">
                 <IMaskInput
                   // Configuração da máscara
+
                   mask={mask}
                   // Valor do campo (do react-hook-form)
                   value={(field.value as any) ?? ""}
                   // Notifica react-hook-form sobre mudanças
-                  onAccept={(value, maskRef) => {
+                  onAccept={(value: any, maskRef: { unmaskedValue: any }) => {
                     // Se unmask=true, envia o valor sem formatação
                     const rawValue = unmask ? maskRef.unmaskedValue : value;
                     field.onChange(rawValue);
@@ -84,35 +104,45 @@ export const InputLabelAnimated = <TFieldValues extends FieldValues>({
                   // Props do input
                   id={inputId}
                   type={inputType}
-                  className={inputClass}
                   placeholder=" "
                   disabled={disabled}
                   // Restante das props
                   {...props}
                   // Outros handlers do react-hook-form
+                  className={cn(
+                    "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                    "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                    "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+                    inputClass
+                  )}
                   unmask={unmask}
                   onBlur={field.onBlur}
                   name={field.name}
                 />
+                <Label htmlFor={inputId} className={labelClass}>
+                  {label}
+                </Label>
               </div>
             )}
           />
         ) : (
           // Input normal para campos sem máscara
-          <Input
-            id={inputId}
-            type={inputType}
-            placeholder=" "
-            className={inputClass}
-            disabled={disabled}
-            {...(register ? register(name) : {})}
-            {...props}
-          />
-        )}
+          <>
+            <Input
+              id={inputId}
+              type={inputType}
+              placeholder=" "
+              className={inputClass}
+              disabled={disabled}
+              {...(register ? register(name) : {})}
+              {...props}
+            />
 
-        <Label htmlFor={inputId} className={labelClass}>
-          {label}
-        </Label>
+            <Label htmlFor={inputId} className={labelClass}>
+              {label}
+            </Label>
+          </>
+        )}
 
         {type === "password" && (
           <button

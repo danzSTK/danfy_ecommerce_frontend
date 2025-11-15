@@ -1,4 +1,4 @@
-import { ILoginResponse, IUser } from "@/interfaces/AuthInterface";
+import { ILoginResponse, IUser } from "@/interfaces/Auth.interface";
 import { LOCAL_STORAGE_KEYS } from "@/interfaces/Constants";
 import { authApi } from "@/services/routes/Auth";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";

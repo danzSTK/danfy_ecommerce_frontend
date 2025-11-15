@@ -1,6 +1,12 @@
 import z from "zod";
 import { COUNTRYS } from "../Constants";
 
+/* const capitalizeEachWord = (s: string) =>
+  s.replace(
+    /\b(\p{L})(\p{L}*)/gu,
+    (_m, first, rest) => first.toUpperCase() + rest.toLowerCase()
+  ); */
+
 export const registerUserSchema = z.object({
   email: z.email({
     pattern: z.regexes.html5Email,
@@ -10,6 +16,7 @@ export const registerUserSchema = z.object({
     .string("Nome é obrigatório")
     .min(2, "Digite um nome válido")
     .max(255, "Nome deve ter no máximo 255 caracteres"),
+
   phone: z.string().nullable(),
   country: z.enum(COUNTRYS).default("BR").optional().nullable(),
   state: z.string().optional(),

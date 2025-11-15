@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { JSX } from "react";
 
 interface SubtitleProps {
@@ -13,8 +14,10 @@ const SubtitleComponent = ({
 }: SubtitleProps) => {
   return (
     <Component
-      className={`text-sm text-muted-foreground font-light font-serif ${className} truncate
-`}
+      className={cn(
+        "truncate text-sm text-muted-foreground font-light font-serif",
+        className
+      )}
     >
       {children}
     </Component>

@@ -2,7 +2,7 @@ import {
   ILoginRequest,
   ILoginResponse,
   IUser,
-} from "@/interfaces/AuthInterface";
+} from "@/interfaces/Auth.interface";
 import { api } from "../api";
 
 export const authApi = api.injectEndpoints({

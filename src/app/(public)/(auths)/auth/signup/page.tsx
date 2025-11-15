@@ -9,7 +9,7 @@ import {
   registerUserSchema,
 } from "@/interfaces/schemas/registerUserSchema";
 import { useRegisterUserMutation } from "@/services/routes/User";
-import { type ICretedUserRequest } from "@/interfaces/AuthInterface";
+import { type ICretedUserRequest } from "@/interfaces/Auth.interface";
 import { type Countrys } from "@/interfaces/Constants";
 
 import { toast } from "sonner";
@@ -47,8 +47,6 @@ export default function SignUpPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [registerUser, { isLoading }] = useRegisterUserMutation();
   const router = useRouter();
-
-
 
   const form = useForm<RegisterUserFormData>({
     resolver: zodResolver(registerUserSchema),

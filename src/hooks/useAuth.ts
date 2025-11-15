@@ -1,4 +1,4 @@
-import { ILoginRequest } from "@/interfaces/AuthInterface";
+import { ILoginRequest } from "@/interfaces/Auth.interface";
 import { LOCAL_STORAGE_KEYS } from "@/interfaces/Constants";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {

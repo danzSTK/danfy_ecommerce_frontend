@@ -15,8 +15,17 @@ export const USER_STATUS = {
   INACTIVE: "inactive",
 } as const;
 
+export const ADDRESS_TYPES = {
+  RESIDENTIAL: "residential",
+  COMMERCIAL: "commercial",
+  OTHER: "other",
+} as const;
+
 export type UserStatus = (typeof USER_STATUS)[keyof typeof USER_STATUS];
+
 export type UserRoles = (typeof USER_ROLES)[keyof typeof USER_ROLES];
+
+export type AddressTypes = (typeof ADDRESS_TYPES)[keyof typeof ADDRESS_TYPES];
 
 export const COUNTRYS = {
   BRAZIL: "BR",
